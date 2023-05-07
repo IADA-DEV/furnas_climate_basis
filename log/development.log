@@ -7,3 +7,60 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 12ms (Views: 4.7ms | ActiveRecord: 0.0ms | Allocations: 5335)
 
 
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:51:06 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/nortonricardo/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/nortonricardo/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 490)
+Completed 200 OK in 6ms (Views: 2.1ms | ActiveRecord: 0.0ms | Allocations: 3460)
+
+
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:52:40 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/nortonricardo/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/nortonricardo/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 490)
+Completed 200 OK in 6ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 3460)
+
+
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:52:42 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/nortonricardo/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/nortonricardo/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/railties-7.0.4.3/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.9ms | Allocations: 272)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.0ms | Allocations: 837)
+
+
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:54:19 -0300
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 104)
+  Rendered layout layouts/application.html.erb (Duration: 3894.7ms | Allocations: 125297)
+Completed 200 OK in 3897ms (Views: 3895.9ms | ActiveRecord: 0.0ms | Allocations: 126187)
+
+
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:56:36 -0300
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.3ms | Allocations: 117)
+  Rendered layout layouts/application.html.erb (Duration: 6.7ms | Allocations: 5777)
+Completed 200 OK in 8ms (Views: 7.9ms | ActiveRecord: 0.0ms | Allocations: 6522)
+
+
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:57:03 -0300
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 114)
+  Rendered layout layouts/application.html.erb (Duration: 6.2ms | Allocations: 5758)
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.0ms | Allocations: 6504)
+
+
+Started GET "/" for 127.0.0.1 at 2023-05-06 20:57:22 -0300
+Processing by DashboardController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering dashboard/index.html.erb within layouts/application
+  Rendered dashboard/index.html.erb within layouts/application (Duration: 0.3ms | Allocations: 122)
+  Rendered layout layouts/application.html.erb (Duration: 6.4ms | Allocations: 5763)
+Completed 200 OK in 8ms (Views: 7.8ms | ActiveRecord: 0.0ms | Allocations: 6509)
+
+
