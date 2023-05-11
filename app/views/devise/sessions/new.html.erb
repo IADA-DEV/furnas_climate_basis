@@ -1,0 +1,119 @@
+<div>
+  <section class="background-radial-gradient overflow-hidden">
+    <style>
+        /*.background-radial-gradient {*/
+        /*    background-color: hsl(218, 41%, 15%);*/
+        /*    background-image: radial-gradient(650px circle at 0% 0%,*/
+        /*    hsl(218, 41%, 35%) 15%,*/
+        /*    hsl(218, 41%, 30%) 35%,*/
+        /*    hsl(218, 41%, 20%) 75%,*/
+        /*    hsl(218, 41%, 19%) 80%,*/
+        /*    transparent 100%),*/
+        /*    radial-gradient(1250px circle at 100% 100%,*/
+        /*            hsl(218, 41%, 45%) 15%,*/
+        /*            hsl(218, 41%, 30%) 35%,*/
+        /*            hsl(218, 41%, 20%) 75%,*/
+        /*            hsl(218, 41%, 19%) 80%,*/
+        /*            transparent 100%);*/
+        /*}*/
+
+        .background-radial-gradient {
+            background-color: hsl(150, 94%, 12%);
+            background-image: radial-gradient(650px circle at 0% 0%,
+            hsl(148, 80%, 24%) 15%,
+            hsl(148, 100%, 19%) 35%,
+            hsl(147, 100%, 18%) 75%,
+            hsl(145, 100%, 17%) 80%,
+            transparent 100%),
+            radial-gradient(1250px circle at 100% 100%,
+                    hsl(148, 80%, 24%) 15%,
+                    hsl(148, 100%, 19%) 35%,
+                    hsl(147, 100%, 18%) 75%,
+                    hsl(145, 100%, 17%) 80%,
+                    transparent 100%);
+        }
+
+        .bg-glass {
+            background-color: hsla(0, 0%, 100%, 0.9) !important;
+            backdrop-filter: saturate(200%) blur(25px);
+        }
+
+        .btn-primary {
+            background-color: hsl(150, 94%, 12%);
+            border-color:hsl(150, 94%, 12%);
+        }
+
+        .btn-primary:hover {
+            background-color: hsl(145, 100%, 17%);
+            border-color:hsl(145, 100%, 17%);
+        }
+    </style>
+
+    <div class="row" style="height: 100vh;">
+
+      <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5" style="display: flex;flex-direction: row;justify-content: center;width: 85vh;">
+
+        <div class="row gx-lg-5 align-items-center mb-5">
+          <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+              Base de dados Climaticas Unificas <br />
+
+            </h1>
+            <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+              Dados climaticos de diversas bases bases unificadas e tratadas em um unico local, para acelerar sua
+              pequisa, desenvolvimento de produtos, analises climaticas atuais ou historicas.
+            </p>
+          </div>
+
+          <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+            <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+            <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+            <div class="card bg-glass">
+              <div class="card-body px-4 py-5 px-md-5">
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                  <div class="row" style="text-align: center">
+                    <h1>Entrar</h1>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form3Example3">Email</label>
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", id:"form3Example3" %>
+                  </div>
+
+                  <!-- Password input -->
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form3Example4">Password</label>
+                    <%= f.password_field :password, autocomplete: "current-password", id:"form3Example4", class:"form-control" %>
+                  </div>
+
+                  <!-- Checkbox -->
+                  <div class="form-check d-flex justify-content-center mb-4">
+                    <% if devise_mapping.rememberable? %>
+                      <div class="field">
+                        <%= f.check_box :remember_me, class:"form-check-input me-2", value:"", id:"form2Example33", checked:true %>
+                        <label class="form-check-label" for="form2Example33">
+                          Relembrar minha senha
+                        </label>
+                      </div>
+                    <% end %>
+
+                  </div>
+
+                  <div class="row" style="text-align: center">
+                    <%= f.submit "Entrar", class:"btn btn-primary btn-block mb-4" %>
+                  </div>
+                  <div class="row" style="text-align: center">
+                    <%= render "devise/shared/links" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
