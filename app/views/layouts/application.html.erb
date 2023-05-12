@@ -13,8 +13,15 @@
   <body>
 <!--  <p class="notice"><%#= notice %></p>-->
 <!--  <p class="alert"><%#= alert %></p>-->
-
-<%= link_to "Sign out", destroy_user_session_path if user_signed_in?%>
-  <%= yield %>
+    <% if user_signed_in?  %>
+      <%= render 'dashboard/menu_lateral' %>
+      <section class="home">
+        <div>
+          <%= yield %>
+        </div>
+      </section>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
