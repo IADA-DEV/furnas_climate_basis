@@ -36,6 +36,10 @@ gem "devise"
 
 gem "byebug"
 
+gem 'will_paginate'
+
+gem 'will_paginate-bootstrap-style'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

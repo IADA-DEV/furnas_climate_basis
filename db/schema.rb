@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_012538) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_173629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_012538) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "weather_stations", force: :cascade do |t|
+    t.string "cidade", comment: "Nome da Cidade"
+    t.string "sg_estado", comment: "Simbulo cidade"
+    t.string "situacao", comment: "CONDICAO - SE ESTA EM OPERACAO"
+    t.decimal "vl_latitude", precision: 65, scale: 30, comment: "VALOR DA LATITUDE"
+    t.decimal "vl_longitude", precision: 65, scale: 30, comment: "VALOR DA LONGITUDE"
+    t.decimal "vl_altitude", precision: 65, scale: 30, comment: "VALOR DA ALTITUDE"
+    t.date "dta_inicio_operacao", comment: "DATA DE INICIO DE REGISTROS"
+    t.string "cdg_estacao", comment: "CODIGO DA ESTACAO - UNICO"
+    t.string "nme_estado", comment: "NOME DO ESTADO"
+    t.string "cdg_regiao", comment: "REGIÃO DO ESTADO"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cdg_regiao"], name: "index_weather_stations_on_cdg_regiao"
+    t.index ["sg_estado"], name: "index_weather_stations_on_sg_estado"
   end
 
 end

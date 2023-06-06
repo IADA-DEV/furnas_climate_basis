@@ -278,7 +278,7 @@
       </span>
 
       <div class="text logo-text">
-        <span class="name"><%= @user.name %></span>
+        <span class="name"><%= current_user.name %></span>
         <span class="profession">New Edge</span>
       </div>
     </div>
@@ -292,10 +292,10 @@
 
       <ul class="menu-links" style="padding: 0;">
         <li class="nav-link">
-          <a href="#">
+          <%= link_to root_path do  %>
             <i class="bi bi-stack icon"></i>
             <span class="text nav-text">Dashboard</span>
-          </a>
+          <% end %>
         </li>
 
         <li class="nav-link">
@@ -308,21 +308,35 @@
         <li class="nav-link">
           <a href="#">
             <i class="bi bi-bell icon"></i>
-            <span class="text nav-text">Notifications</span>
+            <span class="text nav-text">Notificações</span>
           </a>
         </li>
 
         <li class="nav-link">
           <a href="#">
             <i class="bi bi-graph-up icon"></i>
-            <span class="text nav-text">Stats</span>
+            <span class="text nav-text">Status</span>
           </a>
         </li>
 
         <li class="nav-link">
           <a href="#">
             <i class="bi bi-hdd-stack icon"></i>
-            <span class="text nav-text">Favourites</span>
+            <span class="text nav-text">Integrações</span>
+          </a>
+        </li>
+
+        <li class="nav-link">
+          <%= link_to weather_stations_path do  %>
+            <i class="bi bi-stack icon"></i>
+            <span class="text nav-text">Estações Met.</span>
+          <% end %>
+        </li>
+
+        <li class="nav-link">
+          <a href="#">
+            <i class="bi bi-stack icon"></i>
+            <span class="text nav-text">Dados Met.</span>
           </a>
         </li>
 
