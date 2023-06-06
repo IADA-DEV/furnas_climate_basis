@@ -1,0 +1,57 @@
+<%= form_with(model: weather_station) do |form| %>
+  <% if weather_station.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(weather_station.errors.count, "error") %> prohibited this weather_station from being saved:</h2>
+
+      <ul>
+        <% weather_station.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :cidade, style: "display: block" %>
+    <%= form.text_field :cidade %>
+  </div>
+
+  <div>
+    <%= form.label :sg_estado, style: "display: block" %>
+    <%= form.text_field :sg_estado %>
+  </div>
+
+  <div>
+    <%= form.label :situacao, style: "display: block" %>
+    <%= form.text_field :situacao %>
+  </div>
+
+  <div>
+    <%= form.label :vl_latitude, style: "display: block" %>
+    <%= form.text_field :vl_latitude %>
+  </div>
+
+  <div>
+    <%= form.label :vl_longitude, style: "display: block" %>
+    <%= form.text_field :vl_longitude %>
+  </div>
+
+  <div>
+    <%= form.label :vl_altitude, style: "display: block" %>
+    <%= form.text_field :vl_altitude %>
+  </div>
+
+  <div>
+    <%= form.label :dta_inicio_operacao, style: "display: block" %>
+    <%= form.date_field :dta_inicio_operacao %>
+  </div>
+
+  <div>
+    <%= form.label :cdg_estacao, style: "display: block" %>
+    <%= form.text_field :cdg_estacao %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

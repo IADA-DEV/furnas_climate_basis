@@ -1,0 +1,76 @@
+<section class="background-radial-gradient overflow-hidden">
+
+  <div class="row" style="height: 100vh;overflow-x: auto;">
+    <div class="row" style="height: 100vh; padding: 30px 10px 10px 50px">
+
+      <div>
+        <div class="card">
+          <div class="card-header pb-0">
+            <h1>Estações Meteorológicas</h1>
+          </div>
+          <div class="card-body">
+            <%= form_with(url: weather_stations_path, method: :get) do |form| %>
+              <%= form.label :sg_estado %>
+              <%= form.select :sg_estado, options_for_select(["Opção 1", "Opção 2", "Opção 3"]), include_blank: true, class: 'select2' %>
+
+              <%= form.label :situacao %>
+              <%= form.select :situacao, options_for_select(["Opção 1", "Opção 2", "Opção 3"]), include_blank: true, class: 'select2' %>
+
+              <%= form.label :cdg_estacao %>
+              <%= form.select :cdg_estacao, options_for_select(["Opção 1", "Opção 2", "Opção 3"]), include_blank: true, class: 'select2' %>
+
+              <%= form.submit "Filtrar" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div id="">
+
+
+        <div class="card">
+          <div class="card-body">
+
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Sigla Estado</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Região</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">Longitude</th>
+                <th scope="col">Altitude</th>
+                <th scope="col">Situação</th>
+                <th scope="col">Dta Fundação</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @weather_stations.each do |weather_station| %>
+                <%= render weather_station %>
+              <% end %>
+              </tbody>
+            </table>
+
+            <div style="display: flex;justify-content: center;">
+              <%= will_paginate @weather_stations, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+
+

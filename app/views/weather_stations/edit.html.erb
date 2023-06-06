@@ -1,0 +1,10 @@
+<h1>Editing weather station</h1>
+
+<%= render "form", weather_station: @weather_station %>
+
+<br>
+
+<div>
+  <%= link_to "Show this weather station", @weather_station %> |
+  <%= link_to "Back to weather stations", weather_stations_path %>
+</div>
