@@ -1,7 +1,7 @@
 <section class="background-radial-gradient overflow-hidden">
 
-  <div class="row" style="height: 100vh;overflow-x: auto;">
-    <div class="row" style="height: 100vh; padding: 30px 10px 10px 50px">
+  <div style="height: 100vh;overflow-x: auto;">
+    <div style="height: 100vh; padding: 30px 10px 10px 50px">
 
       <div>
         <div class="card">
@@ -9,18 +9,41 @@
             <h1>Estações Meteorológicas</h1>
           </div>
           <div class="card-body">
+
             <%= form_with(url: weather_stations_path, method: :get) do |form| %>
-              <%= form.label :sg_estado %>
-              <%= form.select :sg_estado, options_for_select(["Opção 1", "Opção 2", "Opção 3"]), include_blank: true, class: 'select2' %>
+              <div class="row p-4">
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Código</p>
+                  <%= form.select :by_cdg_estacao,
+                                  options_for_select(@wmo.collect { |tp| [tp,tp] }, @fiters_params[:by_cdg_estacao]),
+                                  {include_blank: 'Selecione'},
+                                  {class: 'select2 form-control'} %>
+                </div>
 
-              <%= form.label :situacao %>
-              <%= form.select :situacao, options_for_select(["Opção 1", "Opção 2", "Opção 3"]), include_blank: true, class: 'select2' %>
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Cidade</p>
+                  <%= form.select :by_cidade, options_for_select(@cidade.collect { |tp| [tp, tp] }, @fiters_params[:by_cidade]),
+                                  {include_blank: 'Selecione um Cidade'}, {class: 'select2 form-control '} %>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Estado</p>
+                  <%= form.select :by_nme_estado, options_for_select(@estado.collect { |tp| [tp, tp] }, @fiters_params[:by_nme_estado]),
+                                  {include_blank: 'Selecione um Estado'}, {class: 'select2 form-control '} %>
+                </div>
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Situação</p>
+                  <%= form.select :by_situacao, options_for_select(["Pane", "Operante"], @fiters_params[:by_situacao]),
+                                  {include_blank: 'Selecione um Situação'}, {class: 'select2 form-control '} %>
+                </div>
 
-              <%= form.label :cdg_estacao %>
-              <%= form.select :cdg_estacao, options_for_select(["Opção 1", "Opção 2", "Opção 3"]), include_blank: true, class: 'select2' %>
 
-              <%= form.submit "Filtrar" %>
+                <div class="p-1 mt-5" style="justify-content: flex-end;display: flex;">
+                  <%= form.submit "Filtrar", class: 'btn btn-primary btn-block mb-4', style:'width: 179px;'%>
+                </div>
+
+              </div>
             <% end %>
+
           </div>
         </div>
       </div>
@@ -68,9 +91,9 @@
 </section>
 
 <script>
-    $(document).ready(function() {
+    window.addEventListener('DOMContentLoaded', () => {
         $('.select2').select2();
-    });
+    })
 </script>
 
 

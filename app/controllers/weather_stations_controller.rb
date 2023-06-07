@@ -1,11 +1,12 @@
 class WeatherStationsController < ApplicationController
   before_action :set_weather_station, only: %i[ show edit update destroy ]
+  before_action :set_filter_index, only: %i[index]
 
   # GET /weather_stations or /weather_stations.json
   def index
     @weather_stations = WeatherStation
                           .filter(filters_params)
-                          .paginate(page: params[:page], per_page: 10)
+                          .paginate(page: params[:page], per_page: 20)
                           .order("sg_estado ASC, cidade ASC")
   end
 
@@ -60,6 +61,15 @@ class WeatherStationsController < ApplicationController
     end
   end
 
+  def set_filter_index
+    @station = WeatherStation.all
+    @cidade = @station.collect{ |t| t.cidade }.uniq
+    @wmo = @station.collect{ |t| t.cdg_estacao }.uniq
+    @estado = @station.collect{ |t| t.nme_estado }.uniq
+
+    @fiters_params = filters_params
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_weather_station
@@ -72,6 +82,6 @@ class WeatherStationsController < ApplicationController
     end
 
     def filters_params
-      filters = params.fetch(:filters, {}).permit(:sg_estado, :situacao, :cdg_estacao)
+      params.permit( :by_cdg_estacao, :by_cidade, :by_nme_estado, :by_situacao )
     end
 end

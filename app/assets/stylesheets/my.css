@@ -41,3 +41,18 @@
 .page-link {
     color: hsl(150, 94%, 12%);
 }
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: hsl(150, 94%, 12%)!important;
+    color: white;
+}
+
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
