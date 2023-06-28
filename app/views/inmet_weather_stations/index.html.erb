@@ -10,7 +10,7 @@
           </div>
           <div class="card-body">
 
-            <%= form_with(url: weather_stations_path, method: :get) do |form| %>
+            <%= form_with(url: inmet_weather_stations_path, method: :get) do |form| %>
               <div class="row p-4">
                 <div class="col-md-3">
                   <p class="mb-1 mt-3 font-weight-bold text-muted">Código</p>
@@ -95,5 +95,3 @@
         $('.select2').select2();
     })
 </script>
-
-

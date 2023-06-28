@@ -1,6 +1,6 @@
-class CreateWeatherStations < ActiveRecord::Migration[7.0]
+class CreateInmetWeatherStations < ActiveRecord::Migration[7.0]
   def change
-    create_table :weather_stations do |t|
+    create_table :inmet_weather_stations do |t|
       t.string :cidade            , comment: 'Nome da Cidade'
       t.string :sg_estado         , comment: 'Simbulo cidade'
       t.string :situacao          , comment: 'CONDICAO - SE ESTA EM OPERACAO'
@@ -15,7 +15,7 @@ class CreateWeatherStations < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_index :weather_stations, :sg_estado
-    add_index :weather_stations, :cdg_regiao
+    add_index :inmet_weather_stations, :sg_estado
+    add_index :inmet_weather_stations, :cdg_regiao
   end
 end

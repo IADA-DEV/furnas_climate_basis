@@ -269,8 +269,16 @@
     .nav-link {
         padding: 0;
     }
+    .active{
+      display:active;
+    }
+    .desable
+    {
+      display:none;
+    }
 </style>
-<nav class="sidebar close">
+<!-- close -->
+<nav class="sidebar">
   <header>
     <div class="image-text">
             <span class="image">
@@ -284,7 +292,7 @@
     </div>
 
     <i class="bi bi-layout-sidebar-inset-reverse icon toggle"></i>
-<!--    <i class="bi bi-layout-sidebar-inset-reverse icon toggle" style="box-shadow: 0 0.1rem 4rem rgb(208 217 212 / 16%) !important;"></i>-->
+
   </header>
 
   <div class="menu-bar">
@@ -299,41 +307,28 @@
         </li>
 
         <li class="nav-link">
-          <a href="#">
-            <i class="bi bi-bar-chart-fill icon"></i>
-            <span class="text nav-text">Analytics</span>
-          </a>
-        </li>
-
-        <li class="nav-link">
-          <a href="#">
-            <i class="bi bi-bell icon"></i>
-            <span class="text nav-text">Notificações</span>
-          </a>
-        </li>
-
-        <li class="nav-link">
-          <a href="#">
-            <i class="bi bi-graph-up icon"></i>
-            <span class="text nav-text">Status</span>
-          </a>
-        </li>
-
-        <li class="nav-link">
-          <a href="#">
-            <i class="bi bi-hdd-stack icon"></i>
-            <span class="text nav-text">Integrações</span>
-          </a>
-        </li>
-
-        <li class="nav-link">
-          <%= link_to weather_stations_path do  %>
-            <i class="bi bi-stack icon"></i>
+          <a href="#" class='menu_station'>
+            <i class="bi bi-boxes icon"></i>
             <span class="text nav-text">Estações Met.</span>
-          <% end %>
+            <i class="bi bi-caret-down-fill icon"></i>
+          </a>
         </li>
 
-        <li class="nav-link">
+        <div class='desable' style="padding-left: 40px;" id='sub_menu_station'>
+          <li class="nav-link">
+            <%= link_to inmet_weather_stations_path, style:'padding-left: 10px;' do  %>
+              <span class="text nav-text">INMET</span>
+            <% end %>
+          </li>
+
+          <li class="nav-link" >
+            <a href="#" style="padding-left: 10px;">
+              <span class="text nav-text">NOA</span>
+            </a>
+          </li>
+        </div>
+
+        <li class="nav-link" >
           <a href="#">
             <i class="bi bi-stack icon"></i>
             <span class="text nav-text">Dados Met.</span>
@@ -365,4 +360,16 @@
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     })
+
+    function toggleMenu(menuElement, targetId) {
+      var targetElement = document.getElementById(targetId);
+      menuElement.addEventListener('click', function() {
+        targetElement.classList.toggle('active');
+        targetElement.classList.toggle('desable');
+      });
+    }
+
+    // Exemplo de uso da função para o menu "Estações Met."
+    var estacoesMet = document.querySelector('.menu_station');
+    toggleMenu(estacoesMet, 'sub_menu_station');
 </script>

@@ -1,4 +1,4 @@
-class WeatherStation < ApplicationRecord
+class InmetWeatherStation < ApplicationRecord
   include Filterable
 
   scope :by_cidade, ->(params) { where(cidade: params) }

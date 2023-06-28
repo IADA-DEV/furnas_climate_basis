@@ -1,10 +1,10 @@
-class WeatherStationsController < ApplicationController
+class InmetWeatherStationsController < ApplicationController
   before_action :set_weather_station, only: %i[ show edit update destroy ]
   before_action :set_filter_index, only: %i[index]
 
   # GET /weather_stations or /weather_stations.json
   def index
-    @weather_stations = WeatherStation
+    @weather_stations = InmetWeatherStation
                           .filter(filters_params)
                           .paginate(page: params[:page], per_page: 20)
                           .order("sg_estado ASC, cidade ASC")
@@ -16,7 +16,7 @@ class WeatherStationsController < ApplicationController
 
   # GET /weather_stations/new
   def new
-    @weather_station = WeatherStation.new
+    @weather_station = InmetWeatherStation.new
   end
 
   # GET /weather_stations/1/edit
@@ -25,7 +25,7 @@ class WeatherStationsController < ApplicationController
 
   # POST /weather_stations or /weather_stations.json
   def create
-    @weather_station = WeatherStation.new(weather_station_params)
+    @weather_station = InmetWeatherStation.new(weather_station_params)
 
     respond_to do |format|
       if @weather_station.save
@@ -62,7 +62,7 @@ class WeatherStationsController < ApplicationController
   end
 
   def set_filter_index
-    @station = WeatherStation.all
+    @station = InmetWeatherStation.all
     @cidade = @station.collect{ |t| t.cidade }.uniq
     @wmo = @station.collect{ |t| t.cdg_estacao }.uniq
     @estado = @station.collect{ |t| t.nme_estado }.uniq
@@ -73,7 +73,7 @@ class WeatherStationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_weather_station
-      @weather_station = WeatherStation.find(params[:id])
+      @weather_station = InmetWeatherStation.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

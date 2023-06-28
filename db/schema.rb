@@ -14,20 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_173629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "weather_stations", force: :cascade do |t|
+  create_table "inmet_weather_stations", force: :cascade do |t|
     t.string "cidade", comment: "Nome da Cidade"
     t.string "sg_estado", comment: "Simbulo cidade"
     t.string "situacao", comment: "CONDICAO - SE ESTA EM OPERACAO"
@@ -40,8 +27,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_173629) do
     t.string "cdg_regiao", comment: "REGIÃO DO ESTADO"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cdg_regiao"], name: "index_weather_stations_on_cdg_regiao"
-    t.index ["sg_estado"], name: "index_weather_stations_on_sg_estado"
+    t.index ["cdg_regiao"], name: "index_inmet_weather_stations_on_cdg_regiao"
+    t.index ["sg_estado"], name: "index_inmet_weather_stations_on_sg_estado"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

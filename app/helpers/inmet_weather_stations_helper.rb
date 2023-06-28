@@ -1,0 +1,2 @@
+module InmetWeatherStationsHelper
+end
