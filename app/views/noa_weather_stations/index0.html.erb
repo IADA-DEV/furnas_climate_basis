@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Noa weather stations</h1>
+
+<div id="noa_weather_stations">
+  <% @noa_weather_stations.each do |noa_weather_station| %>
+    <%= render noa_weather_station %>
+    <p>
+      <%= link_to "Show this noa weather station", noa_weather_station %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New noa weather station", new_noa_weather_station_path %>

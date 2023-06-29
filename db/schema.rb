@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_173629) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_29_000910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_173629) do
     t.datetime "updated_at", null: false
     t.index ["cdg_regiao"], name: "index_inmet_weather_stations_on_cdg_regiao"
     t.index ["sg_estado"], name: "index_inmet_weather_stations_on_sg_estado"
+  end
+
+  create_table "noa_weather_stations", force: :cascade do |t|
+    t.decimal "vl_latitude", precision: 65, scale: 30, comment: "VALOR DA LATITUDE"
+    t.decimal "vl_longitude", precision: 65, scale: 30, comment: "VALOR DA LONGITUDE"
+    t.decimal "vl_altitude", precision: 65, scale: 30, comment: "VALOR DA ALTITUDE"
+    t.string "cdg_estacao", comment: "CODIGO DA ESTACAO - UNICO"
+    t.string "name", comment: "Nome da Cidade"
+    t.date "dta_inicio_operacao", comment: "DATA DE INICIO DE REGISTROS"
+    t.date "dta_fim_operacao", comment: "DATA DE Fim DE REGISTROS"
+    t.float "datacoverage"
+    t.float "elevationUnit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

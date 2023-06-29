@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @noa_weather_station %>
+
+<div>
+  <%= link_to "Edit this noa weather station", edit_noa_weather_station_path(@noa_weather_station) %> |
+  <%= link_to "Back to noa weather stations", noa_weather_stations_path %>
+
+  <%= button_to "Destroy this noa weather station", @noa_weather_station, method: :delete %>
+</div>

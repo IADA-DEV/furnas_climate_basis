@@ -1,0 +1,86 @@
+<section class="background-radial-gradient overflow-hidden">
+
+  <div style="height: 100vh;overflow-x: auto;">
+    <div style="height: 100vh; padding: 30px 10px 10px 50px">
+
+      <div>
+        <div class="card">
+          <div class="card-header pb-0">
+            <h1>Estações Meteorológicas</h1>
+          </div>
+          <div class="card-body">
+
+            <%= form_with(url: noa_weather_stations_path, method: :get) do |form| %>
+              <div class="row p-4">
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Código</p>
+                  <%= form.select :by_cdg_estacao,
+                                  options_for_select(@wmo.collect { |tp| [tp,tp] }, @fiters_params[:by_cdg_estacao]),
+                                  {include_blank: 'Selecione'},
+                                  {class: 'select2 form-control'} %>
+                </div>
+
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Nome</p>
+                  <%= form.select :by_name,
+                                  options_for_select(@name.collect { |tp| [tp,tp] }, @fiters_params[:by_name]),
+                                  {include_blank: 'Selecione'},
+                                  {class: 'select2 form-control'} %>
+                </div>
+
+
+                <div class="p-1 mt-5" style="justify-content: flex-end;display: flex;">
+                  <%= form.submit "Filtrar", class: 'btn btn-primary btn-block mb-4', style:'width: 179px;'%>
+                </div>
+
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="">
+
+
+        <div class="card">
+          <div class="card-body">
+
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Código</th> <!-- cdg_estacao -->
+                <th scope="col">Cidade</th> <!-- name -->
+                <th scope="col">Latitude</th> <!-- vl_latitude -->
+                <th scope="col">Longitude</th> <!-- vl_longitude -->
+                <th scope="col">Altitude</th> <!-- vl_altitude -->
+                <th scope="col">Data Inicio</th> <!-- dta_inicio_operacao -->
+                <th scope="col">Data Fim</th> <!-- dta_fim_operacao -->
+              </tr>
+              </thead>
+              <tbody>
+              <% @noa_weather_stations.each do |noa_weather_station| %>
+                <%= render noa_weather_station %>
+              <% end %>
+              </tbody>
+            </table>
+
+            <div style="display: flex;justify-content: center;">
+              <%= will_paginate @noa_weather_stations, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        $('.select2').select2();
+    })
+</script>
