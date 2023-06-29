@@ -60,6 +60,10 @@ class NoaWeatherStationsController < ApplicationController
     end
   end
 
+  def start_import
+
+  end
+
   def set_filter_index
     @station = NoaWeatherStation.all
 

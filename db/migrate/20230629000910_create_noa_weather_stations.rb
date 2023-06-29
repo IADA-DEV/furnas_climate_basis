@@ -4,7 +4,7 @@ class CreateNoaWeatherStations < ActiveRecord::Migration[7.0]
       t.decimal :vl_latitude      , comment: 'VALOR DA LATITUDE'            , precision: 65, scale: 30   # "latitude": -0.73,
       t.decimal :vl_longitude     , comment: 'VALOR DA LONGITUDE'           , precision: 65, scale: 30   # "longitude": -47.85
       t.decimal :vl_altitude      , comment: 'VALOR DA ALTITUDE'            , precision: 65, scale: 30   # "elevation": 0,
-      
+
       t.string :cdg_estacao       , comment: 'CODIGO DA ESTACAO - UNICO'   # "id": "GHCND:BR000047003",
       t.string :name            , comment: 'Nome da Cidade'                # "name": "CURUCA, BR",
       t.date :dta_inicio_operacao , comment: 'DATA DE INICIO DE REGISTROS' # "mindate": "1981-07-01",
@@ -14,5 +14,8 @@ class CreateNoaWeatherStations < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :noa_weather_stations, :cdg_estacao
+    add_index :V, :name
   end
 end
