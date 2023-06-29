@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
+
   resources :noa_weather_stations
   resources :inmet_weather_stations
   devise_for :users

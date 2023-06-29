@@ -44,6 +44,10 @@ gem 'will_paginate-bootstrap-style'
 # consumo de API Externas
 gem 'rest-client'
 
+# #Automação de processos longos
+gem 'sidekiq'
+
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
