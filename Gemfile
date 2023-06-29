@@ -40,6 +40,10 @@ gem 'will_paginate'
 
 gem 'will_paginate-bootstrap-style'
 
+
+# consumo de API Externas
+gem 'rest-client'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
