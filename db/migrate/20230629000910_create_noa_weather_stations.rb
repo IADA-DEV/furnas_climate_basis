@@ -16,6 +16,6 @@ class CreateNoaWeatherStations < ActiveRecord::Migration[7.0]
     end
 
     add_index :noa_weather_stations, :cdg_estacao
-    add_index :V, :name
+    add_index :noa_weather_stations, :name
   end
 end

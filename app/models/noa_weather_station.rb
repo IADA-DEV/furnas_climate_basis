@@ -13,13 +13,12 @@ class NoaWeatherStation < ApplicationRecord
     return (resp_json/1000.0).ceil
   end
 
-  def self.consumo_weather_data(page)
+  def self.consumo_weather_data(page) 
       url = URL_NOA +  "locationid=FIPS%3ABR&limit=1000&offset=#{page}"
       headers = { 'token' => TOKEN_NOA }
 
-
       response = RestClient.get(url, headers)
-
+  
       resp_json = JSON.parse(response.body)
 
       resp_json['results'].each do |data|
@@ -27,11 +26,7 @@ class NoaWeatherStation < ApplicationRecord
       end
   end
 
-
-
-
-
-  def inport_create(data)
+  def self.inport_create(data)
     NoaWeatherStation.create(
       name:                data['name'],
       cdg_estacao:         data['id'],
@@ -45,8 +40,8 @@ class NoaWeatherStation < ApplicationRecord
     )
   end
 
-  def inport_update(obj, data)
-    obj.update_attributes(
+  def self.inport_update(obj, data)
+    obj.update(
       name:                data['name'],
       cdg_estacao:         data['id'],
       vl_altitude:         data['elevation'],
@@ -59,13 +54,13 @@ class NoaWeatherStation < ApplicationRecord
     )
   end
 
-  def find_create_or_update(data)
-    obj = NoaWeatherStation.find_by(cdg_estacao: data['id'])
-    if obj
-      inport_update(obj, data)
-    else
+  def self.find_create_or_update(data)
+    # obj = NoaWeatherStation.find_by(cdg_estacao: data['id'])
+    # if obj.present?
+    #   inport_update(obj, data)
+    # else
       inport_create(data)
-    end
+    # end
   end
 
 end

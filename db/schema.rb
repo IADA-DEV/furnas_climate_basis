@@ -43,6 +43,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_000910) do
     t.float "elevationUnit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cdg_estacao"], name: "index_noa_weather_stations_on_cdg_estacao"
+    t.index ["name"], name: "index_noa_weather_stations_on_name"
   end
 
   create_table "users", force: :cascade do |t|

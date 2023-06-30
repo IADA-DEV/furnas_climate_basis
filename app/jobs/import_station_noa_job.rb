@@ -1,7 +1,11 @@
 class ImportStationNoaJob < ApplicationJob
   queue_as :default
 
+
   def perform(*args)
-    # Do something later
+    page = args.first
+    if page.presente
+      NoaWeatherStation.consumo_weather_data(page)
+    end
   end
 end

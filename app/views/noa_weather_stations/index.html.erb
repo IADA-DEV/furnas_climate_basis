@@ -5,8 +5,9 @@
 
       <div>
         <div class="card">
-          <div class="card-header pb-0">
+          <div class="card-header pb-0" style="display: flex;">
             <h1>Estações Meteorológicas</h1>
+            <button class='btn btn-primary btn-block' onclick= "submit_import_station()" style="margin-left: auto;margin-bottom: 11px;"> Gerar Importação </button>
           </div>
           <div class="card-body">
 
@@ -29,13 +30,12 @@
                 </div>
 
 
-                <div class="p-1 mt-5" style="justify-content: flex-end;display: flex;">
-                  <%= form.submit "Filtrar", class: 'btn btn-primary btn-block mb-4', style:'width: 179px;'%>
+                <div class="p-1 mt-1" style="justify-content: flex-end;display: flex;">
+                  <%= form.submit "Filtrar", class: 'btn btn-primary btn-block mb-1', style:'width: 179px;'%>
                 </div>
 
               </div>
             <% end %>
-
           </div>
         </div>
       </div>
@@ -83,4 +83,22 @@
     window.addEventListener('DOMContentLoaded', () => {
         $('.select2').select2();
     })
+</script>
+
+<script>
+  function submit_import_station() {
+    $.ajax({
+      url: "<%= start_import_noa_weather_stations_path %>",
+      type: "get",
+      data: { },
+      success: function (data) {
+        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: data.message
+        })
+      },
+      error: function (data) { },
+    });
+  }
 </script>
