@@ -6,14 +6,17 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-NoaWeatherStation.create(
-  "vl_altitude": 0,
-            "dta_inicio_operacao": "1981-07-01",
-            "dta_fim_operacao": "1999-12-31",
-            "vl_latitude": -0.73,
-            "name": "CURUCA, BR",
-            "datacoverage": 0.7612,
-            "cdg_estacao": "GHCND:BR000047003",
-            "elevationUnit": "METERS",
-            "vl_longitude": -47.85
-)
+# NoaWeatherStation.create(
+#   "vl_altitude": 0,
+#             "dta_inicio_operacao": "1981-07-01",
+#             "dta_fim_operacao": "1999-12-31",
+#             "vl_latitude": -0.73,
+#             "name": "CURUCA, BR",
+#             "datacoverage": 0.7612,
+#             "cdg_estacao": "GHCND:BR000047003",
+#             "elevationUnit": "METERS",
+#             "vl_longitude": -47.85
+# )
+
+
+User.create(name: 'Development', email: 'teste@dev.com', password: 123123, password_confirmation: 123123)

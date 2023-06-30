@@ -4,7 +4,12 @@ class ImportStationNoaWorker
 
   def perform(page)
     if page.present?
-      NoaWeatherStation.consumo_weather_data(page)
+      results = Noa::NoaWeatherService.stations(page)
+
+      results.each do |data|
+        NoaWeatherStation.find_create_or_update(data)
+      end
+
     end
   end
 end

@@ -1,32 +1,13 @@
 class NoaWeatherStation < ApplicationRecord
+  # includes 
   include Filterable
 
+
+  # scopes 
   scope :by_cdg_estacao, ->(params) { where(cdg_estacao: params) }
 
-  def self.all_import_page
-    url = URL_NOA + 'locationid=FIPS%3ABR&limit=1'
-    headers = { 'token' => TOKEN_NOA }
-
-    response = RestClient.get(url, headers)
-
-    resp_json = JSON.parse(response.body)['metadata']['resultset']['count']
-
-    return (resp_json/1000.0).ceil
-  end
-
-  def self.consumo_weather_data(page) 
-      url = URL_NOA +  "locationid=FIPS%3ABR&limit=1000&offset=#{page}"
-      headers = { 'token' => TOKEN_NOA }
-
-      response = RestClient.get(url, headers)
   
-      resp_json = JSON.parse(response.body)
-
-      resp_json['results'].each do |data|
-        find_create_or_update(data)
-      end
-  end
-
+  # methods class
   def self.inport_create(data)
     NoaWeatherStation.create(
       name:                data['name'],

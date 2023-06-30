@@ -61,7 +61,7 @@ class NoaWeatherStationsController < ApplicationController
   end
 
   def start_import
-    pages = NoaWeatherStation.all_import_page
+    pages = Noa::NoaWeatherService.all_pages_stations
 
     for page in 1..pages
       ImportStationNoaWorker.perform_async(page) # ImportStationNoaWorker.new.perform(1) executar no console
