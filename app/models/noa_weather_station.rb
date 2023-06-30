@@ -1,6 +1,7 @@
 class NoaWeatherStation < ApplicationRecord
   include Filterable
 
+  scope :by_cdg_estacao, ->(params) { where(cdg_estacao: params) }
 
   def self.all_import_page
     url = URL_NOA + 'locationid=FIPS%3ABR&limit=1'
@@ -55,12 +56,12 @@ class NoaWeatherStation < ApplicationRecord
   end
 
   def self.find_create_or_update(data)
-    # obj = NoaWeatherStation.find_by(cdg_estacao: data['id'])
-    # if obj.present?
-    #   inport_update(obj, data)
-    # else
+    obj = NoaWeatherStation.find_by(cdg_estacao: data['id'])
+    if obj.present?
+      inport_update(obj, data)
+    else
       inport_create(data)
-    # end
+    end
   end
 
 end
