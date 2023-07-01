@@ -13,6 +13,38 @@ class Noa::NoaWeatherService
   
       return response['results']
     end
+
+
+    # ------- restrição de request  ------- 
+
+    # Restrição: 10 requests por minuto Noa::NoaWeatherService.noa_request_limit_reached?
+    def self.noa_request_limit_reached?
+        cache_key = 'noa_request_limit'
+
+        request_count = Rails.cache.fetch(cache_key, expires_in: 1.minute) { 0 }
+        
+        if request_count >= 10
+            return false
+        else
+            Rails.cache.write(cache_key, request_count+1, expires_in: expires_in(cache_key))
+            return true
+        end
+    end
+
+    # Restrição: 5000 requests por dia
+    def self.noa_daily_request_limit_reached?
+        cache_key = 'noa_request_limit_day'
+
+        request_count = Rails.cache.fetch(cache_key, expires_in: minutes_until_midnight.minute) { 0 }
+        
+        if request_count >= 5000
+            return false
+        else
+            Rails.cache.write(cache_key, request_count+1, expires_in: expires_in(cache_key))
+            return true
+        end
+    end
+    
   
     private
 
@@ -33,4 +65,23 @@ class Noa::NoaWeatherService
           return {}
         end
     end
+
+    def self.expires_in(cache_key)
+        entry = Rails.cache.send(:read_entry, cache_key)
+        return nil unless entry
+      
+        expires_at = entry.expires_at
+        return nil unless expires_at
+      
+        Time.at(expires_at) - Time.current
+    end
+
+    def self.minutes_until_midnight
+        current_time = Time.current
+        end_of_day = current_time.end_of_day
+      
+        minutes_left = (end_of_day - current_time) / 60
+        minutes_left.to_i
+    end
+
   end
