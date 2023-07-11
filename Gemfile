@@ -42,6 +42,8 @@ gem 'will_paginate-bootstrap-style'
 
 gem 'timecop'
 
+gem 'listen'
+
 
 # consumo de API Externas
 gem 'rest-client'

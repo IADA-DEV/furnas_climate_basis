@@ -17,5 +17,7 @@ class CreateInmetWeatherStations < ActiveRecord::Migration[7.0]
 
     add_index :inmet_weather_stations, :sg_estado
     add_index :inmet_weather_stations, :cdg_regiao
+    add_index :inmet_weather_stations, :nme_estado
+    add_index :inmet_weather_stations, :situacao
   end
 end

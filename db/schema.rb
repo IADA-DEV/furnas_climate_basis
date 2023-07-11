@@ -28,7 +28,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_000910) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cdg_regiao"], name: "index_inmet_weather_stations_on_cdg_regiao"
+    t.index ["nme_estado"], name: "index_inmet_weather_stations_on_nme_estado"
     t.index ["sg_estado"], name: "index_inmet_weather_stations_on_sg_estado"
+    t.index ["situacao"], name: "index_inmet_weather_stations_on_situacao"
   end
 
   create_table "noa_weather_stations", force: :cascade do |t|

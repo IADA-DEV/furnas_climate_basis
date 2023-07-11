@@ -70,6 +70,14 @@ class InmetWeatherStationsController < ApplicationController
     @fiters_params = filters_params
   end
 
+  def start_import
+    ImportStationInmetWorker.perform_async();
+
+    respond_to do |format|
+      format.json { render json: { message: 'Importação em Andamento.' }, status: :ok }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_weather_station

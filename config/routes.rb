@@ -8,7 +8,10 @@ Rails.application.routes.draw do
     get 'start_import', on: :collection
   end
 
-  resources :inmet_weather_stations
+  resources :inmet_weather_stations do 
+    get 'start_import', on: :collection
+  end
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
