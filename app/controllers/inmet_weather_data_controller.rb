@@ -1,9 +1,12 @@
 class InmetWeatherDataController < ApplicationController
   before_action :set_inmet_weather_datum, only: %i[ show edit update destroy ]
+  before_action :set_filter_index, only: %i[index]
 
   # GET /inmet_weather_data or /inmet_weather_data.json
   def index
-    @inmet_weather_data = InmetWeatherDatum.all
+    @inmet_weather_data = InmetWeatherDatum
+                            .filter(filters_params)
+                            .paginate(page: params[:page], per_page: 20)
   end
 
   # GET /inmet_weather_data/1 or /inmet_weather_data/1.json
@@ -57,6 +60,12 @@ class InmetWeatherDataController < ApplicationController
     end
   end
 
+  def set_filter_index
+    @wmo = InmetWeatherStation.all.collect{ |t| t.cdg_estacao }.uniq
+
+    @fiters_params = filters_params
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inmet_weather_datum
@@ -67,4 +76,9 @@ class InmetWeatherDataController < ApplicationController
     def inmet_weather_datum_params
       params.fetch(:inmet_weather_datum, {})
     end
+
+    def filters_params
+      params.permit( :by_hr_medicao, :by_dta_medicao, :by_cdg_station)
+    end
+
 end

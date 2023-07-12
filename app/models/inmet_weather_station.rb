@@ -2,6 +2,8 @@ class InmetWeatherStation < ApplicationRecord
   include Filterable
   include EstadoHelper
 
+  self.primary_key = 'cdg_estacao'
+
   # scopes
   scope :by_cidade, ->(params) { where(cidade: params) }
   scope :by_cdg_estacao, ->(params) { where(cdg_estacao: params) }

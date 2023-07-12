@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_115226) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_144106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_115226) do
     t.float "ven_raj", comment: "Raj. Vento (m/s)"
     t.float "tem_ins", comment: "Temp. Ins. (C)"
     t.float "umd_ins", comment: "Umi. Ins. (%)"
-    t.bigint "inmet_weather_station_id", comment: "ID da Estação"
+    t.string "inmet_weather_station_id", comment: "ID da Estação"
     t.time "hr_medicao", comment: "Hora (UTC)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
