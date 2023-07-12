@@ -328,12 +328,28 @@
           </li>
         </div>
 
-        <li class="nav-link" >
-          <a href="#">
+         <li class="nav-link">
+          <a href="#" class='menu_data'>
             <i class="bi bi-stack icon"></i>
             <span class="text nav-text">Dados Met.</span>
+            <i class="bi bi-caret-down-fill icon"></i>
           </a>
         </li>
+
+        <div class='desable' style="padding-left: 40px;" id='sub_menu_data'>
+          <li class="nav-link">
+            <%= link_to inmet_weather_stations_path, style:'padding-left: 10px;' do  %>
+              <span class="text nav-text">INMET</span>
+            <% end %>
+          </li>
+
+          <li class="nav-link" >
+            <%= link_to noa_weather_stations_path, style:'padding-left: 10px;' do  %>
+              <span class="text nav-text">NOA</span>
+            <% end %>
+          </li>
+        </div>
+
 
         <li class="nav-link" >
           <%= link_to sidekiq_web_path, target:"_blank" do  %>
@@ -379,4 +395,7 @@
     // Exemplo de uso da função para o menu "Estações Met."
     var estacoesMet = document.querySelector('.menu_station');
     toggleMenu(estacoesMet, 'sub_menu_station');
+
+    var estacoesMet = document.querySelector('.menu_data');
+    toggleMenu(estacoesMet, 'sub_menu_data');
 </script>
