@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @inmet_weather_datum %>
+
+<div>
+  <%= link_to "Edit this inmet weather datum", edit_inmet_weather_datum_path(@inmet_weather_datum) %> |
+  <%= link_to "Back to inmet weather data", inmet_weather_data_path %>
+
+  <%= button_to "Destroy this inmet weather datum", @inmet_weather_datum, method: :delete %>
+</div>

@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :inmet_weather_data
   mount Sidekiq::Web => '/sidekiq'
 
 

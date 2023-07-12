@@ -10,9 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_000910) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_115226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "inmet_weather_data", force: :cascade do |t|
+    t.float "pre_ins", comment: "Pressao Ins. (hPa)"
+    t.float "tem_sem", comment: "???????????"
+    t.float "pre_max", comment: "Pressao Max. (hPa)"
+    t.float "rad_glo", comment: "Radiacao (KJ/m¬≤)"
+    t.float "pto_ins", comment: "Pto Orvalho Ins. (C)"
+    t.float "tem_min", comment: "Temp. Min. (C)"
+    t.float "umd_min", comment: "Umi. Min. (%)"
+    t.float "pto_max", comment: "Pto Orvalho Max. (C)"
+    t.float "ven_dir", comment: "Dir. Vento (m/s)"
+    t.date "dta_medicao", comment: "Data da Medição"
+    t.float "chuva", comment: "Chuva (mm)"
+    t.float "pre_min", comment: "Pressao Min. (hPa)"
+    t.float "umd_max", comment: "Umi. Max. (%)"
+    t.float "ven_vel", comment: "Vel. Vento (m/s)"
+    t.float "pto_min", comment: "Pto Orvalho Min. (C)"
+    t.float "tem_max", comment: "Temp. Max. (C)"
+    t.float "ven_raj", comment: "Raj. Vento (m/s)"
+    t.float "tem_ins", comment: "Temp. Ins. (C)"
+    t.float "umd_ins", comment: "Umi. Ins. (%)"
+    t.bigint "inmet_weather_station_id", comment: "ID da Estação"
+    t.time "hr_medicao", comment: "Hora (UTC)"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dta_medicao"], name: "index_inmet_weather_data_on_dta_medicao"
+    t.index ["hr_medicao"], name: "index_inmet_weather_data_on_hr_medicao"
+    t.index ["inmet_weather_station_id"], name: "index_inmet_weather_data_on_inmet_weather_station_id"
+  end
 
   create_table "inmet_weather_stations", force: :cascade do |t|
     t.string "cidade", comment: "Nome da Cidade"

@@ -1,0 +1,2 @@
+class InmetWeatherDatum < ApplicationRecord
+end

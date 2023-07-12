@@ -1,0 +1,2 @@
+module InmetWeatherDataHelper
+end

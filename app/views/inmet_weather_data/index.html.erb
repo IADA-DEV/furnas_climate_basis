@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Inmet weather data</h1>
+
+<div id="inmet_weather_data">
+  <% @inmet_weather_data.each do |inmet_weather_datum| %>
+    <%= render inmet_weather_datum %>
+    <p>
+      <%= link_to "Show this inmet weather datum", inmet_weather_datum %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New inmet weather datum", new_inmet_weather_datum_path %>
