@@ -1,6 +1,9 @@
 class InmetWeatherDatum < ApplicationRecord
     include Filterable
     
+    validates :dta_medicao, uniqueness: { scope: [:hr_medicao, :inmet_weather_station_id],
+                                        message: 'Registro já consta no sistema!' }
+
     belongs_to :inmet_weather_station, foreign_key: 'inmet_weather_station_id'
 
     scope :by_hr_medicao, ->(attrs) { where(hr_medicao: attrs) }
@@ -9,7 +12,7 @@ class InmetWeatherDatum < ApplicationRecord
 
 
     def self.inport_create(attrs)
-        a = InmetWeatherDatum.create(
+        InmetWeatherDatum.create(
             chuva: attrs['CHUVA'],
             pre_ins: attrs['PRE_INS'],
             tem_sem: attrs['TEM_SEN'],

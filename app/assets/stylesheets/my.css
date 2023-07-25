@@ -39,6 +39,26 @@
     border-color: hsl(145, 100%, 17%);
   }
 
+  .text-bg-info {
+    color: #000!important;
+    background-color: RGBA(13,202,240,var(--bs-bg-opacity,1))!important;
+}
+
+.text-bg-warning {
+    color: #000!important;
+    background-color: RGBA(255,193,7,var(--bs-bg-opacity,1))!important;
+}
+
+.text-bg-danger {
+    color: #fff!important;
+    background-color: RGBA(220,53,69,var(--bs-bg-opacity,1))!important;
+}
+
+.text-bg-success {
+    color: #fff!important;
+    background-color: RGBA(25,135,84,var(--bs-bg-opacity,1))!important;
+}
+
 /*.card {*/
 /*    background-color: rgb(0 0 0 / 15%) !important;*/
 /*}*/

@@ -68,6 +68,9 @@
                 <th scope="col">Altitude</th>
                 <th scope="col">Situação</th>
                 <th scope="col">Dta Fundação</th>
+                <th scope="col">Dta Fim Operação</th>
+                <th scope="col">Status</th>
+                <th scope="col">Opção</th>
               </tr>
               </thead>
               <tbody>
@@ -86,6 +89,14 @@
                   <td><%= weather_station.situacao %></td>
 
                   <td><%= weather_station.dta_inicio_operacao.to_date_b %></td>
+
+                  <td><%= weather_station.dta_inicio_operacao.to_date_b %></td>
+                  <td><%=  weather_station.status?  %></td>
+                  <td>
+                    <% if weather_station.status == 0 %>
+                      <%= "<button class='btn btn-primary btn-block' onclick= submit_import_data('#{weather_station.id}')  style='padding: 3px;'> Importar </button>".html_safe %>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
               </tbody>
@@ -128,4 +139,26 @@
       error: function (data) { },
     });
   }
+
+  function submit_import_data(id_stattion) {
+    $.ajax({
+      url: "<%= start_import_data_inmet_weather_stations_path %>",
+      type: "get",
+      data: {id_stattion},
+      success: function (data) {
+        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: data.message
+        })
+      },
+      error: function (data) { 
+        Swal.fire({
+          icon: 'dange',
+          title: data.message
+        })
+      },
+    });
+  }
+
 </script>

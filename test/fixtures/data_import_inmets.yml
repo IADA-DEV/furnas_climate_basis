@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dta_inicio: 2023-07-24
+  dta_fim: 2023-07-24
+  status: false
+  inmet_weather_station: one
+
+two:
+  dta_inicio: 2023-07-24
+  dta_fim: 2023-07-24
+  status: false
+  inmet_weather_station: two

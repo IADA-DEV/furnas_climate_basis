@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :inmet_weather_stations do 
     get 'start_import', on: :collection
+    get 'start_import_data', on: :collection
   end
 
   devise_for :users

@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_144106) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_24_180145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "data_import_inmets", force: :cascade do |t|
+    t.date "dta_inicio"
+    t.date "dta_fim"
+    t.boolean "status"
+    t.string "inmet_weather_station_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inmet_weather_station_id"], name: "index_data_import_inmets_on_inmet_weather_station_id"
+    t.index ["status"], name: "index_data_import_inmets_on_status"
+  end
 
   create_table "inmet_weather_data", force: :cascade do |t|
     t.float "pre_ins", comment: "Pressao Ins. (hPa)"
@@ -34,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_144106) do
     t.float "ven_raj", comment: "Raj. Vento (m/s)"
     t.float "tem_ins", comment: "Temp. Ins. (C)"
     t.float "umd_ins", comment: "Umi. Ins. (%)"
-    t.string "inmet_weather_station_id", comment: "ID da Estação"
+    t.string "inmet_weather_station_id", null: false, comment: "ID da Estação"
     t.time "hr_medicao", comment: "Hora (UTC)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_144106) do
     t.string "cdg_regiao", comment: "REGIÃO DO ESTADO"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["cdg_regiao"], name: "index_inmet_weather_stations_on_cdg_regiao"
     t.index ["nme_estado"], name: "index_inmet_weather_stations_on_nme_estado"
     t.index ["sg_estado"], name: "index_inmet_weather_stations_on_sg_estado"

@@ -7,7 +7,7 @@ class InmetWeatherStationsController < ApplicationController
     @weather_stations = InmetWeatherStation
                           .filter(filters_params)
                           .paginate(page: params[:page], per_page: 20)
-                          .order("sg_estado ASC, cidade ASC")
+                          .order("cdg_estacao ASC")
   end
 
   # GET /weather_stations/1 or /weather_stations/1.json
@@ -75,6 +75,17 @@ class InmetWeatherStationsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: { message: 'Importação em Andamento.' }, status: :ok }
+    end
+  end
+
+  def start_import_data
+    respond_to do |format|
+      if params[:id_stattion].present? && InmetWeatherStation.find(params[:id_stattion]).present?
+        DataImportScheduleInmetWorker.perform_async(params[:id_stattion]);
+        format.json { render json: { message: 'Importação da Estação em Andamento.' }, status: :ok }
+      else
+        format.json { render json: { message: 'Deve informar o Id da Estação' }, status: :unprocessable_entity }
+      end
     end
   end
 

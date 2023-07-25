@@ -50,4 +50,18 @@ class InmetWeatherStation < ApplicationRecord
     end
   end
 
+  def status?
+    if self.status.to_i == 0
+      return '<span class="badge text-bg-info">Ausente</span>'.html_safe
+    elsif self.status.to_i == 1
+      return '<span class="badge text-bg-warning">Aguardando</span>'.html_safe
+    elsif self.status.to_i == 2
+      return '<span class="badge text-bg-danger">Importando</span> '.html_safe
+    elsif self.status.to_i == 3
+      return '<span class="badge text-bg-success">Importado</span>'.html_safe
+    elsif self.status.to_i == 4
+      return '<span class="badge text-bg-warning">Atualizar!</span>'.html_safe
+    end
+  end
+
 end
