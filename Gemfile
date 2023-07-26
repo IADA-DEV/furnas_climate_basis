@@ -44,6 +44,9 @@ gem 'timecop'
 
 gem 'listen'
 
+gem 'whenever', require: false
+
+gem 'bundler', '2.4.17'
 
 # consumo de API Externas
 gem 'rest-client'
