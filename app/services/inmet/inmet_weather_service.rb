@@ -10,6 +10,12 @@ class Inmet::InmetWeatherService
       return api_call(get_url)
     end
 
+    def self.data_time_today(time)
+      get_url = URL_DATA_TODAY_INMET + '/' + Date.current.to_s + '/' + time + '/' + TOKEN_INMET
+      return api_call(get_url)
+    end
+
+
     private
 
     def self.api_call(path, headers = {}, payload = {})
