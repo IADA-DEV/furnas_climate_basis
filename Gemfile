@@ -44,7 +44,7 @@ gem 'timecop'
 
 gem 'listen'
 
-gem 'whenever', require: false
+# gem 'whenever', require: false
 
 gem 'bundler', '2.4.17'
 
