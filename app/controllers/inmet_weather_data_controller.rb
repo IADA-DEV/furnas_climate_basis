@@ -6,7 +6,7 @@ class InmetWeatherDataController < ApplicationController
   def index
     @inmet_weather_data = InmetWeatherDatum
                             .filter(filters_params)
-                            .paginate(page: params[:page], per_page: 20)
+                            .paginate(page: params[:page], per_page: 24)
                             .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
   end
 
@@ -62,7 +62,7 @@ class InmetWeatherDataController < ApplicationController
   end
 
   def set_filter_index
-    @wmo = InmetWeatherStation.all.collect{ |t| t.cdg_estacao }.uniq
+    @wmo = InmetWeatherStation.order(:cdg_estacao).collect{ |t| [t.cdg_estacao, t.cidade] }.uniq
 
     @fiters_params = filters_params
   end

@@ -21,7 +21,7 @@
                 <div class="col-md-3">
                   <p class="mb-1 mt-3 font-weight-bold text-muted">Código</p>
                   <%= form.select :by_cdg_station,
-                                  options_for_select(@wmo.collect { |tp| [tp,tp] }, @fiters_params[:by_cdg_station]),
+                                  options_for_select(@wmo.collect { |tp| ["#{tp.first} - #{tp.last}",tp.first] }, @fiters_params[:by_cdg_station]),
                                   {include_blank: 'Selecione'},
                                   {class: 'select2 form-control'} %>
                 </div>
