@@ -22,7 +22,7 @@ if Rails.env.production?
   ('00'..'23').to_a.each do |hour|
     Sidekiq::Cron::Job.create(
       name: "INMET - IMPORT DIARIO - #{hour}:00", # nome do trabalho
-      cron: "15 #{hour} * * *", # tempo em cron notation, neste caso, a cada hora
+      cron: "20 #{hour} * * *", # tempo em cron notation, neste caso, a cada hora
       class: 'DataImportTodayInmetWorker', # nome da classe worker
       args: ["#{hour}00"] # Argumentos para a função perform
     )
