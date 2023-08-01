@@ -70,7 +70,9 @@
                 <th scope="col">Dta Fundação</th>
                 <th scope="col">Dta Fim Operação</th>
                 <th scope="col">Status</th>
-                <th scope="col">Opção</th>
+                <% if current_user.admin %>
+                  <th scope="col">Opção</th>
+                <% end %>
               </tr>
               </thead>
               <tbody>
@@ -93,7 +95,7 @@
                   <td><%= weather_station.dta_inicio_operacao.to_date_b %></td>
                   <td><%=  weather_station.status?  %></td>
                   <td>
-                    <% if weather_station.status == 0 %>
+                    <% if weather_station.status == 0 && current_user.admin %>
                       <%= "<button class='btn btn-primary btn-block' onclick= submit_import_data('#{weather_station.id}')  style='padding: 3px;'> Importar </button>".html_safe %>
                     <% end %>
                   </td>
