@@ -65,14 +65,17 @@ class InmetWeatherDatum < ApplicationRecord
             dta_medicao: attrs['DT_MEDICAO']
         )
     end
-    
+
 
     def self.set_hr_medicao(hr_min, data_str)
         date = Date.parse(data_str)
         hours = hr_min[0, 2].to_i
         minutes = hr_min[2, 2].to_i
 
-        return Time.new(date.year, date.month, date.day, hours, minutes)
+        Time.use_zone("Brasilia") do
+            Time.zone.local(date.year, date.month, date.day, hours, minutes)
+        end
     end
+
 
 end

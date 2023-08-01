@@ -12,7 +12,7 @@ module FurnasClimateBasis
     config.load_defaults 7.0
 
     config.time_zone = 'Brasilia'
-    config.active_record.default_timezone = :local
+    config.active_record.time_zone_aware_attributes = false
 
     config.assets.initialize_on_precompile = false
 
