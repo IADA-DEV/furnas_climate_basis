@@ -1,5 +1,5 @@
 class Time
   def to_time_br
-    self.strftime('%H:%M')
+    self.utc.strftime('%H:%M')
   end
 end
