@@ -23,13 +23,13 @@ class Inmet::InmetWeatherService
             response = RestClient.get(path, headers)
             return JSON.parse(response.body)
         rescue Exception => e
-            # params = { path: path, headers: headers, payload: payload, response: response }
+            params = { path: path, headers: headers, payload: payload, response: response }
            
-            # LogErro.create(
-            #     model: 'Noa::NoaWeatherService'
-            #     description: params,
-            #     erro: e
-            # )
+            LogErro.create(
+                model: 'Noa::NoaWeatherService',
+                description: params.to_json,
+                erro: e.to_json
+            )
   
           return {}
         end

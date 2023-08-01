@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_24_180145) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_01_005947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_180145) do
     t.index ["nme_estado"], name: "index_inmet_weather_stations_on_nme_estado"
     t.index ["sg_estado"], name: "index_inmet_weather_stations_on_sg_estado"
     t.index ["situacao"], name: "index_inmet_weather_stations_on_situacao"
+  end
+
+  create_table "log_erros", force: :cascade do |t|
+    t.string "model"
+    t.text "description"
+    t.text "erro"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "noa_weather_stations", force: :cascade do |t|

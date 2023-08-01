@@ -5,13 +5,15 @@ class DataImportScheduleInmetWorker
 
   def perform(id_station)
     station = InmetWeatherStation.find(id_station)
+    station.update(status: 2)
+    
     date = station.dta_inicio_operacao
     current_date = Date.current - 1.day
 
     while date < current_date
       next_date = calcular_proxima_data(date)
 
-      import = DataImportInmet.create(dta_inicio: date, dta_fim: next_date, inmet_weather_station_id: id_station)
+      import = DataImportInmet.create(dta_inicio: date, dta_fim: next_date, inmet_weather_station_id: id_station, status: false)
 
       DataImportInmetWorker.perform_async(date.to_s, next_date.to_s, id_station, import.id)
       date = next_date + 1.day

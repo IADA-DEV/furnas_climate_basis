@@ -7,10 +7,17 @@ class DataImportInmetWorker
     results = Inmet::InmetWeatherService.data(dta_inicio, dta_fim, id_station)
 
     results.each do |attr|
-      InmetWeatherDatum.inport_create(attr)
+      obj = InmetWeatherDatum.inport_create(attr)
+      unless obj.persisted?
+            LogErro.create(
+                model: 'DataImportInmetWorker',
+                description: attr.to_json,
+                erro: obj.errors.full_messages.join(', ')
+            )
+      end
     end
 
-    DataImportInmet.find(id_import).update(status: true)
+    DataImportInmet.find_by(id: id_import).update(status: true)
 
   end
 

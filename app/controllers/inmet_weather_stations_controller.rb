@@ -80,8 +80,9 @@ class InmetWeatherStationsController < ApplicationController
 
   def start_import_data
     respond_to do |format|
-      if params[:id_stattion].present? && InmetWeatherStation.find(params[:id_stattion]).present?
+      if params[:id_stattion].present? && InmetWeatherStation.find_by(cdg_estacao: params[:id_stattion]).present?
         DataImportScheduleInmetWorker.perform_async(params[:id_stattion]);
+        InmetWeatherStation.find(params[:id_stattion]).update(status: 1);
         format.json { render json: { message: 'Importação da Estação em Andamento.' }, status: :ok }
       else
         format.json { render json: { message: 'Deve informar o Id da Estação' }, status: :unprocessable_entity }
