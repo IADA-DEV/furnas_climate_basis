@@ -20,8 +20,8 @@ class CreateInmetWeatherData < ActiveRecord::Migration[7.0]
       t.float :ven_raj                       , comment: 'Raj. Vento (m/s)'
       t.float :tem_ins                       , comment: 'Temp. Ins. (C)'
       t.float :umd_ins                       , comment: 'Umi. Ins. (%)'
-      t.belongs_to :inmet_weather_station   , comment: 'ID da Estação', null: false
-      t.time :hr_medicao                     , comment: 'Hora (UTC)'
+      t.belongs_to :inmet_weather_station    , comment: 'ID da Estação', null: false
+      t.datetime :hr_medicao                 , comment: 'Hora (UTC)'
       # t.string :ano                          , comment: 'Ano'
       # t.string :mes                          , comment: 'Mes'
       # t.string :dia                          , comment: 'Dia'

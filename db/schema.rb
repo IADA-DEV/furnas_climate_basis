@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_131009) do
     t.float "tem_ins", comment: "Temp. Ins. (C)"
     t.float "umd_ins", comment: "Umi. Ins. (%)"
     t.string "inmet_weather_station_id", null: false, comment: "ID da Estação"
-    t.time "hr_medicao", comment: "Hora (UTC)"
+    t.datetime "hr_medicao", comment: "Hora (UTC)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dta_medicao"], name: "index_inmet_weather_data_on_dta_medicao"

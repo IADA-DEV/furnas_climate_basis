@@ -11,7 +11,7 @@ module FurnasClimateBasis
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    config.time_zone = 'Brasilia'
+    config.time_zone = 'UTC'
     config.active_record.time_zone_aware_attributes = false
 
     config.assets.initialize_on_precompile = false

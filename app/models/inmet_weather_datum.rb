@@ -6,7 +6,10 @@ class InmetWeatherDatum < ApplicationRecord
 
     belongs_to :inmet_weather_station, foreign_key: 'inmet_weather_station_id'
 
-    scope :by_hr_medicao, ->(attrs) { where(hr_medicao: attrs) }
+    scope :by_hr_medicao, ->(time_str) {
+        hour, minute = time_str.split(":").map(&:to_i)
+        where("DATE_PART('hour', hr_medicao) = ? AND DATE_PART('minute', hr_medicao) = ?", hour, minute)
+    }
     scope :by_dta_medicao, ->(attrs) { where(dta_medicao: attrs) }
     scope :by_cdg_station, ->(attrs) { where(inmet_weather_station_id: attrs) }
 
@@ -71,11 +74,8 @@ class InmetWeatherDatum < ApplicationRecord
         date = Date.parse(data_str)
         hours = hr_min[0, 2].to_i
         minutes = hr_min[2, 2].to_i
-
-        Time.use_zone("Brasilia") do
-            Time.zone.local(date.year, date.month, date.day, hours, minutes)
-        end
+        # byebug
+        return Time.zone.local(date.year, date.month, date.day, hours, minutes)
     end
-
 
 end
