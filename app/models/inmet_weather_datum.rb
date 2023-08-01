@@ -41,10 +41,7 @@ class InmetWeatherDatum < ApplicationRecord
     end
 
     def self.inport_find_or_create(attrs)
-        datum = InmetWeatherDatum.find_or_initialize_by(
-            inmet_weather_station_id: attrs['CD_ESTACAO'],
-            hr_medicao: self.set_hr_medicao(attrs['HR_MEDICAO'], attrs['DT_MEDICAO'])
-        )
+        datum = InmetWeatherDatum.find_or_initialize_by(inmet_weather_station_id: attrs['CD_ESTACAO'], hr_medicao: self.set_hr_medicao(attrs['HR_MEDICAO'], attrs['DT_MEDICAO']))
     
         datum.update(
             chuva: attrs['CHUVA'],
