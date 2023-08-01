@@ -46,6 +46,9 @@ gem 'listen'
 
 # gem 'whenever', require: false
 
+gem 'sidekiq-cron'
+
+
 gem 'bundler', '2.4.17'
 
 # consumo de API Externas
