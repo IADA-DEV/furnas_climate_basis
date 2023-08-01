@@ -7,6 +7,7 @@ class InmetWeatherDataController < ApplicationController
     @inmet_weather_data = InmetWeatherDatum
                             .filter(filters_params)
                             .paginate(page: params[:page], per_page: 20)
+                            .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
   end
 
   # GET /inmet_weather_data/1 or /inmet_weather_data/1.json
@@ -78,7 +79,10 @@ class InmetWeatherDataController < ApplicationController
     end
 
     def filters_params
-      params.permit( :by_hr_medicao, :by_dta_medicao, :by_cdg_station)
+      filter = params.permit( :by_hr_medicao, :by_dta_medicao, :by_cdg_station)
+      filter[:by_dta_medicao] = filter[:by_dta_medicao].present? ? filter[:by_dta_medicao] : Date.current.to_s
+      filter[:by_cdg_station] = filter[:by_cdg_station].present? ? filter[:by_cdg_station] : 'A002'
+      return filter
     end
 
 end

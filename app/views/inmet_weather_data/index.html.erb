@@ -14,13 +14,8 @@
               <div class="row p-4">
 
                 <div class="col-md-3">
-                  <p class="mb-1 mt-3 font-weight-bold text-muted">Código</p>
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Data</p>
                   <%= form.date_field :by_dta_medicao, class: 'form-control', value: @fiters_params[:by_dta_medicao] %>
-                </div>
-
-                <div class="col-md-3">
-                  <p class="mb-1 mt-3 font-weight-bold text-muted">Código</p>
-                  <%= form.time_field :by_hr_medicao, class: 'form-control', value: @fiters_params[:by_hr_medicao] %>
                 </div>
 
                 <div class="col-md-3">
@@ -30,6 +25,13 @@
                                   {include_blank: 'Selecione'},
                                   {class: 'select2 form-control'} %>
                 </div>
+
+                <div class="col-md-3">
+                  <p class="mb-1 mt-3 font-weight-bold text-muted">Hora</p>
+                  <%= form.time_field :by_hr_medicao, class: 'form-control', value: @fiters_params[:by_hr_medicao] %>
+                </div>
+
+                
 
               
 
