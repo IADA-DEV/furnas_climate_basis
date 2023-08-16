@@ -1,0 +1,77 @@
+<div class="col-sm-12 col-xl-6 box-col-6">
+  <div class="card">
+    <div class="card-body p-0">
+      <div id="<%= id %>"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var options = {
+        series: [
+            {
+                name: '<%= id.upcase %>',
+                data: <%= raw dados %>
+            }
+        ],
+        chart: {
+            height: 350,
+            type: 'line',
+            dropShadow: {
+                enabled: true,
+                color: '#000',
+                top: 18,
+                left: 7,
+                blur: 10,
+                opacity: 0.2
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        colors: ['#77B6EA'],
+        dataLabels: {
+            enabled: true,
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        title: {
+            text: '<%= id.upcase %>',
+            align: 'left'
+        },
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+        },
+        markers: {
+            size: 1
+        },
+        xaxis: {
+            categories: <%= raw time %>,
+            title: {
+                text: 'Hora'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Temperatura'
+            },
+            min: <%= dados.min - 30 %>,
+            max: <%= dados.max + 30 %>
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'right',
+            floating: true,
+            offsetY: -25,
+            offsetX: -5
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#<%= id %>"), options);
+    chart.render();
+</script>

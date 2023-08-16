@@ -1,0 +1,101 @@
+<div class="col-sm-12 col-xl-12 box-col-12">
+  <div class="card">
+    <div class="card-body p-0">
+      <div id="chart_geral"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var options = {
+        series: [
+            {
+                name: "TEMPERATURA",
+                data: <%= raw @tem_ins %>
+            },
+            {
+                name: "HUMIDADE",
+                data: <%= raw @umd_ins %>
+            }
+            ,
+            {
+                name: "RADIAÇÃO",
+                data: <%= raw @rad_glo_normalized %>
+            }
+            ,
+            {
+                name: "CHUVA",
+                data: <%= raw @chuva %>
+            }
+            ,
+            {
+                name: "PRESÃO",
+                data: <%= raw @pre_ins_normalized %>
+            }
+            ,
+            {
+                name: "VENTO",
+                data: <%= raw @ven_vel %>
+            }
+        ],
+        chart: {
+            height: 650,
+            type: 'line',
+            dropShadow: {
+                enabled: true,
+                color: '#000',
+                top: 18,
+                left: 7,
+                blur: 10,
+                opacity: 0.2
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        colors: ['#FF5733', '#77B6EA', '#FFA500', '#00FF00', '#FFD700', '#6A5ACD' ],
+        dataLabels: {
+            enabled: true,
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        title: {
+            text: 'Average High & Low Temperature',
+            align: 'left'
+        },
+        grid: {
+            borderColor: '#e7e7e7',
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+        },
+        markers: {
+            size: 1
+        },
+        xaxis: {
+            categories: <%= raw @time %>,
+            title: {
+                text: 'Month'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Temperature'
+            },
+            min: -10,
+            max: 100
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'right',
+            floating: true,
+            offsetY: -25,
+            offsetX: -5
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart_geral"), options);
+    chart.render();
+</script>

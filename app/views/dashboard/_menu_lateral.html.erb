@@ -306,6 +306,15 @@
           <% end %>
         </li>
 
+        <% if ENV.fetch("RAILS_ENV", "development") == "development"  %>
+            <li class="nav-link">
+              <%= link_to grafico_dashboard_index_path do  %>
+                <i class="bi bi-stack icon"></i>
+                <span class="text nav-text">Graficos</span>
+              <% end %>
+            </li>
+        <% end %>
+
         <li class="nav-link">
           <a href="#" class='menu_station'>
             <i class="bi bi-boxes icon"></i>
