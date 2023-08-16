@@ -2,12 +2,12 @@ class DashboardController < ApplicationController
 
   def index
     @station = InmetWeatherStation.all
-    @size_station = @station.count
-    @operante = @station.where(situacao: "Operante").size
-    @pane = @station.where(situacao: "Pane").size
+    # @size_station = @station.count
+    # @operante = @station.where(situacao: "Operante").size
+    # @pane = @station.where(situacao: "Pane").size
     @cidade = @station.collect{ |t| t.cidade }.uniq
 
-    @data = InmetWeatherDatum.all.size
+    # @data = InmetWeatherDatum.all.size
 
     @inmet_weather_data = InmetWeatherDatum
                             .filter(by_cdg_station: 'A002',
@@ -25,12 +25,12 @@ class DashboardController < ApplicationController
     @time = @inmet_weather_data.collect { |t| t.hr_medicao.to_time_br }
 
 
-    @tem_ins_normalized = min_max_scale(@tem_ins)
-    @umd_ins_normalized = min_max_scale(@umd_ins)
+    # @tem_ins_normalized = min_max_scale(@tem_ins)
+    # @umd_ins_normalized = min_max_scale(@umd_ins)
     @rad_glo_normalized = min_max_scale(@rad_glo)
-    @chuva_normalized = min_max_scale(@chuva)
+    # @chuva_normalized = min_max_scale(@chuva)
     @pre_ins_normalized = min_max_scale(@pre_ins)
-    @ven_vel_normalized = min_max_scale(@ven_vel)
+    # @ven_vel_normalized = min_max_scale(@ven_vel)
   end
 
   def grafico
