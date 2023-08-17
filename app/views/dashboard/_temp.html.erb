@@ -60,8 +60,8 @@
             title: {
                 text: 'Temperatura'
             },
-            min: <%= dados.min - 30 %>,
-            max: <%= dados.max + 30 %>
+            min: <%= (dados.min || 0) - 30 %>,
+            max: <%= (dados.max || 0) + 30 %>
         },
         legend: {
             position: 'top',
