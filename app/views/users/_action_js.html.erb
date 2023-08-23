@@ -47,24 +47,28 @@
         });
     }
     // 'Houve um erro ao tentar deletar o usuário. Por favor, tente novamente mais tarde.'
-    function edit_user(id_user) {
+    function edit_user(user_id) {
+        var csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
         $.ajax({
-            url: "<%= start_import_data_inmet_weather_stations_path %>",
-            type: "get",
-            data: {id_stattion},
-            success: function (data) {
-                console.log(data);
-                Swal.fire({
-                    icon: 'success',
-                    title: data.message
-                })
+            url: "/users/" + user_id,
+            method: "GET",
+            dataType: "json",
+            success: function(user) {
+                // Preencha o modal com os dados do usuário
+                $('#user_form_update #id_user_update').val(user.id);
+                $('#user_form_update #update_name_user').val(user.name);
+                $('#user_form_update #update_email_user').val(user.email);
+
+                // Mostra o modal
+                $('#update_user').modal('show');
             },
-            error: function (data) {
+            error: function() {
                 Swal.fire({
-                    icon: 'dange',
-                    title: data.message
-                })
-            },
+                    icon: 'error',
+                    title: 'Erro ao buscar os dados do usuário.'
+                });
+            }
         });
     }
+
 </script>

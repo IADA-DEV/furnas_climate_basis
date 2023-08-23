@@ -1,0 +1,82 @@
+<div class="modal fade" id="update_user" tabindex="-1" role="dialog" aria-labelledby="update_userTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Novo Usuário</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="font-size: 25px">&times;</span>
+        </button>
+      </div>
+      <%= form_with model: User, url: update_user_users_path, html: { method: :patch, id: 'user_form_update' } do |f| %>
+        <%= f.hidden_field :id , id:'id_user_update'%>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <div class="card-body px-4 py-5 px-md-5">
+          <div class="form-outline mb-1">
+            <label class="form-label" for="form3Example0" style="color: #2E2F30">Nome:</label>
+            <%= f.text_field :name, autofocus: true, class:"form-control", id:"update_name_user", placeholder: 'Digite o nome' %>
+          </div>
+          <div class="form-outline mb-1">
+            <label class="form-label" for="form3Example3" style="color: #2E2F30">Email:</label>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", id:"update_email_user", placeholder: 'Digite o email' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right: auto;">Cancelar</button>
+          <%= f.submit "Salvar", class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('user_form_update');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'PATCH',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-Token': formData.get("authenticity_token")
+                },
+                credentials: 'same-origin'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na rede ou no servidor');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'error') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: data.error_message
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: data.message,
+                            allowOutsideClick: false
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Um erro ocorreu ao processar sua solicitação. Tente novamente mais tarde.'
+                    });
+                });
+        });
+    });
+</script>

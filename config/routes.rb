@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   resources :inmet_weather_data
   mount Sidekiq::Web => '/sidekiq'
 
-  resources :users
+  resources :users, only: [:index, :create, :destroy, :show] do
+    patch 'update_user', to: 'users#update', on: :collection
+
+  end
 
   resources :noa_weather_stations do
     get 'start_import', on: :collection
