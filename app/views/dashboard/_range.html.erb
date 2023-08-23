@@ -1,7 +1,7 @@
 <div class="col-sm-12 col-xl-12 box-col-12">
   <div class="card">
     <div class="card-body p-0">
-      <div id=""></div>
+      <div id="<%= id %>"></div>
     </div>
   </div>
 </div>
@@ -10,36 +10,12 @@
     var options = {
         series: [
             {
-                name: "TEMPERATURA",
-                data: <%= raw @tem_ins %>
-            },
-            {
-                name: "HUMIDADE",
-                data: <%= raw @umd_ins %>
-            }
-            ,
-            {
-                name: "RADIAÇÃO",
-                data: <%= raw @rad_glo_normalized %>
-            }
-            ,
-            {
-                name: "CHUVA",
-                data: <%= raw @chuva %>
-            }
-            ,
-            {
-                name: "PRESÃO",
-                data: <%= raw @pre_ins_normalized %>
-            }
-            ,
-            {
-                name: "VENTO",
-                data: <%= raw @ven_vel %>
+                name: '<%= name.upcase %>',
+                data: <%= raw dados %>
             }
         ],
         chart: {
-            height: 650,
+            height: 350,
             type: 'line',
             dropShadow: {
                 enabled: true,
@@ -53,7 +29,7 @@
                 show: false
             }
         },
-        colors: ['#FF5733', '#77B6EA', '#FFD700', '#00FF00', '#545454', '#6A5ACD' ],
+        colors: ['#77B6EA'],
         dataLabels: {
             enabled: true,
         },
@@ -61,7 +37,7 @@
             curve: 'smooth'
         },
         title: {
-            text: 'Average High & Low Temperature',
+            text: '<%= id.upcase %>',
             align: 'left'
         },
         grid: {
@@ -75,17 +51,17 @@
             size: 1
         },
         xaxis: {
-            categories: <%= raw @time %>,
+            categories: <%= raw time %>,
             title: {
-                text: 'Month'
+                text: 'Data'
             }
         },
         yaxis: {
             title: {
-                text: 'Temperature'
+                text: '<%= name.upcase %>'
             },
-            min: -10,
-            max: 100
+            min: <%= (dados.min || 0) - 30 %>,
+            max: <%= (dados.max || 0) + 30 %>
         },
         legend: {
             position: 'top',
@@ -96,6 +72,6 @@
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart_geral"), options);
+    var chart = new ApexCharts(document.querySelector("#<%= id %>"), options);
     chart.render();
 </script>

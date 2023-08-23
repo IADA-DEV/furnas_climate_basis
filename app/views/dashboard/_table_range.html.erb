@@ -1,0 +1,11 @@
+<%= turbo_frame_tag 'range_data_current' do %>
+
+    <%= render partial: 'range', locals: { dados: @tem_ins_range, time: @time_range, id: 'temperatura_range', name: 'Temperatura' } %>
+    <%= render partial: 'range', locals: { dados: @umd_ins_range, time: @time_range, id: 'humidade_range', name: 'Humidade' } %>
+    <%= render partial: 'range', locals: { dados: @rad_glo_range, time: @time_range, id: 'radiacao_range', name: 'Radiacao' } %>
+    <%= render partial: 'range', locals: { dados: @ven_vel_range, time: @time_range, id: 'vento_range', name: 'Vento' } %>
+    <%= render partial: 'range', locals: { dados: @chuva_range, time: @time_range, id: 'chuva_range', name: 'Chuva' } %>
+    <%= render partial: 'range', locals: { dados: @pre_ins_range, time: @time_range, id: 'Pressão_range', name: 'Pressão' } %>
+
+  </div>
+<% end %>
