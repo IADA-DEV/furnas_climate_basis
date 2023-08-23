@@ -44,6 +44,9 @@ gem 'timecop'
 
 gem 'listen'
 
+gem 'rails-i18n'
+
+
 # gem 'whenever', require: false
 
 gem 'sidekiq-cron'

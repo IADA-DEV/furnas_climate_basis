@@ -116,3 +116,8 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus{
 .apexcharts-tooltip-y-group {
     color: hsl(150, 94%, 12%)!important;
 }
+
+.close {
+    background: #ff000000;
+    border: transparent;
+}

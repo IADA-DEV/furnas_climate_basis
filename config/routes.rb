@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :inmet_weather_data
   mount Sidekiq::Web => '/sidekiq'
 
+  resources :users
 
   resources :noa_weather_stations do
     get 'start_import', on: :collection
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
 
   resources :dashboard do
     get 'grafico', on: :collection

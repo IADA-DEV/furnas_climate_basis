@@ -1,0 +1,10 @@
+<% @users.each do |user| %>
+  <tr id="station_<%= user.id %>">
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.admin == true ? 'Sim' : 'Não' %></td>
+    <td>
+      <%= render 'action', user: user %>
+    </td>
+  </tr>
+<% end %>

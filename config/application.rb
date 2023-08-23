@@ -13,6 +13,7 @@ module FurnasClimateBasis
 
     config.time_zone = 'UTC'
     config.active_record.time_zone_aware_attributes = false
+    config.i18n.default_locale = :'pt-BR'
 
     config.assets.initialize_on_precompile = false
 
