@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   respond_to :html, :json, :js
   def index
-    @users = User.paginate(page: params[:page], per_page: 20)
+    @users = User
+               .order(:name)
+               .paginate(page: params[:page], per_page: 20)
   end
 
   def create
@@ -42,6 +44,16 @@ class UsersController < ApplicationController
       render json: { status: 'error', error_message: error_messages }
     end
   end
+
+  def update_admin
+    user = User.find(params[:user_id])
+    if false
+      render json: { status: 'success', message: 'Usuário atualizado com sucesso!' }
+    else
+      render json: { status: 'error', error_message: user.errors.full_messages.join(', ') }
+    end
+  end
+
 
 
   def user_params
