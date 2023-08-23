@@ -316,7 +316,7 @@
         <% end %>
 
         <li class="nav-link">
-          <a href="#" class='menu_station'>
+          <a href=avascript:void(0) class='menu_station'>
             <i class="bi bi-boxes icon"></i>
             <span class="text nav-text">Estações Met.</span>
             <i class="bi bi-caret-down-fill icon"></i>
@@ -338,7 +338,7 @@
         </div>
 
          <li class="nav-link">
-          <a href="#" class='menu_data'>
+          <a href=avascript:void(0) class='menu_data'>
             <i class="bi bi-stack icon"></i>
             <span class="text nav-text">Dados Met.</span>
             <i class="bi bi-caret-down-fill icon"></i>
@@ -391,7 +391,6 @@
 
 
 <script>
-    document.addEventListener('turbo:load', () => {
         const body = document.querySelector('body'),
             sidebar = body.querySelector('nav'),
             toggle = body.querySelector(".toggle");
@@ -415,5 +414,4 @@
 
         var estacoesMet = document.querySelector('.menu_data');
         toggleMenu(estacoesMet, 'sub_menu_data');
-    });
 </script>
