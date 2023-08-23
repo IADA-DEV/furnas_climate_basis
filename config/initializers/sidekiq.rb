@@ -9,7 +9,7 @@ Sidekiq.configure_client do |config|
   config.redis = { url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0') }
 end
 
-if Rails.env.production?
+# if Rails.env.production?
   ('00'..'23').to_a.each do |hour|
     Sidekiq::Cron::Job.create(
       name: "INMET - IMPORT DIARIO - #{hour}:00", # nome do trabalho
@@ -18,7 +18,7 @@ if Rails.env.production?
       args: ["#{hour}00"] # Argumentos para a função perform
     )
   end
-end
+# end
 
 
 

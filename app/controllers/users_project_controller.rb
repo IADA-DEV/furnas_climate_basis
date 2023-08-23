@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersProjectController < ApplicationController
   respond_to :html, :json, :js
   def index
     @users = User
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
 
   def update_admin
     user = User.find(params[:user_id])
-    if false
+    if user.update(admin: params[:admin])
       render json: { status: 'success', message: 'Usuário atualizado com sucesso!' }
     else
       render json: { status: 'error', error_message: user.errors.full_messages.join(', ') }

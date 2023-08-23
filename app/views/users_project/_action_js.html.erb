@@ -20,7 +20,7 @@
         var csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
         $.ajax({
-            url: "/users/" + id_user,
+            url: "/users_project/" + id_user,
             type: "DELETE",
             data: {
                 authenticity_token: csrfToken
@@ -50,7 +50,7 @@
     function edit_user(user_id) {
         var csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
         $.ajax({
-            url: "/users/" + user_id,
+            url: "/users_project/" + user_id,
             method: "GET",
             dataType: "json",
             success: function(user) {
