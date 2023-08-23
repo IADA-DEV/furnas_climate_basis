@@ -391,27 +391,29 @@
 
 
 <script>
-    const body = document.querySelector('body'),
-        sidebar = body.querySelector('nav'),
-        toggle = body.querySelector(".toggle");
+    document.addEventListener('turbo:load', () => {
+        const body = document.querySelector('body'),
+            sidebar = body.querySelector('nav'),
+            toggle = body.querySelector(".toggle");
 
 
-    toggle.addEventListener("click", () => {
-        sidebar.classList.toggle("close");
-    })
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        })
 
-    function toggleMenu(menuElement, targetId) {
-      var targetElement = document.getElementById(targetId);
-      menuElement.addEventListener('click', function() {
-        targetElement.classList.toggle('active');
-        targetElement.classList.toggle('desable');
-      });
-    }
+        function toggleMenu(menuElement, targetId) {
+          var targetElement = document.getElementById(targetId);
+          menuElement.addEventListener('click', function() {
+            targetElement.classList.toggle('active');
+            targetElement.classList.toggle('desable');
+          });
+        }
 
-    // Exemplo de uso da função para o menu "Estações Met."
-    var estacoesMet = document.querySelector('.menu_station');
-    toggleMenu(estacoesMet, 'sub_menu_station');
+        // Exemplo de uso da função para o menu "Estações Met."
+        var estacoesMet = document.querySelector('.menu_station');
+        toggleMenu(estacoesMet, 'sub_menu_station');
 
-    var estacoesMet = document.querySelector('.menu_data');
-    toggleMenu(estacoesMet, 'sub_menu_data');
+        var estacoesMet = document.querySelector('.menu_data');
+        toggleMenu(estacoesMet, 'sub_menu_data');
+    });
 </script>
