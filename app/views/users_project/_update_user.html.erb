@@ -1,11 +1,12 @@
-<div class="modal fade" id="update_user" tabindex="-1" role="dialog" aria-labelledby="update_userTitle" aria-hidden="true">
+<div class="modal fade" id="update_user" tabindex="-1" role="dialog" aria-labelledby="update_userTitle" aria-hidden="true" data-controller="users-project">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="update_userModalLongTitle">Novo Usuário</h5>
       </div>
-      <%= form_with model: User, url: update_user_users_project_index_path, html: { method: :patch, id: 'user_form_update' } do |f| %>
-        <%= f.hidden_field :id , id:'id_user_update'%>
+      <%= form_with model: User, url: update_user_users_project_index_path, html: { method: :patch, id: 'user_form_update', data: { action: "submit->users-project#updateUser" } } do |f| %>
+
+    <%= f.hidden_field :id , id:'id_user_update'%>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <div class="card-body px-4 py-5 px-md-5">
           <div class="form-outline mb-1">

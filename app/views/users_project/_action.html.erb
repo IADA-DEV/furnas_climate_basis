@@ -1,7 +1,7 @@
-<button class="btn" style="padding: 4px" onclick=edit_user(<%= user.id %>)>
+<button class="btn" style="padding: 4px" data-controller="users-project" data-action="click->users-project#showUpdate" data-user-id="<%= user.id %>">
   <i class="bi bi-pencil-fill"></i>
 </button>
 
-<button class="btn" style="padding: 4px" onclick="confirmDelete(<%= user.id %>)">
+<button class="btn" style="padding: 4px" data-controller="users-project" data-action="click->users-project#confirmDelete" data-user-id="<%= user.id %>">
   <i class="bi bi-trash-fill"></i>
 </button>
