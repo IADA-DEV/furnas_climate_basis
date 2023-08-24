@@ -7,7 +7,7 @@
           <span aria-hidden="true" style="font-size: 25px">&times;</span>
         </button>
       </div>
-      <%= form_with model: User.new, url: users_project_index_path, html: { id: 'new_user_form' } do |f| %>
+      <%= form_with model: User.new, url: users_project_index_path, html: { id: 'new_user_form', data: { controller: "users-project", action: "submit->users-project#submit" } } do |f| %>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <div class="card-body px-4 py-5 px-md-5">
           <div class="form-outline mb-1">
@@ -27,5 +27,3 @@
     </div>
   </div>
 </div>
-
-<%= render 'layouts/request_reponse_js', id_locale: 'new_user_form' %>
