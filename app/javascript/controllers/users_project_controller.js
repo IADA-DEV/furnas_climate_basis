@@ -180,5 +180,51 @@ export default class extends Controller {
         $(modal).modal('hide');
     }
 
+    toggleAdmin(event) {
+        const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        const checkbox = event.currentTarget;
+        const userId = checkbox.dataset.id;
+        const isChecked = checkbox.checked;
+        const previousState = !isChecked;
+
+        fetch('/users_project/update_admin', {
+            method: 'PATCH',
+            body: JSON.stringify({
+                'user_id': userId,
+                'admin': isChecked
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
+            credentials: 'same-origin'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+                } else {
+                    checkbox.checked = previousState;
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Não foi possivel Completar a Requisição'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao processar a requisição.',
+                    text: error.message
+                });
+            });
+    }
+
+
 
 }

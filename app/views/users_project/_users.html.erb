@@ -6,53 +6,9 @@
       <%= render 'action', user: user %>
     </td>
     <td>
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" data-id="<%= user.id %>" <%= 'checked' if user.admin %>>
+      <div class="form-check form-switch" data-controller="users-project">
+        <input class="form-check-input" type="checkbox" role="switch" id="user_up_<%= user.id %>" data-id="<%= user.id %>" <%= 'checked' if user.admin %> data-action="change->users-project#toggleAdmin">
       </div>
     </td>
   </tr>
 <% end %>
-
-<script>
-    $(document).ready(function() {
-        // Ouvinte de evento para quando o checkbox mudar de estado
-        $('.form-check-input').change(function() {
-            var userId = $(this).data('id'); // Pega o ID do usuário
-            var isChecked = $(this).prop('checked'); // Pega o estado atual do checkbox
-            var previousState = !isChecked;  // O estado oposto do estado atual
-
-            // Envia a requisição AJAX
-            $.ajax({
-                url: '/users_project/update_admin',
-                method: 'get',
-                data: {
-                    user_id: userId,
-                    admin: isChecked // true ou false
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data.status === 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: data.message
-                        });
-                    } else {
-                        $(`input[data-id=${userId}]`).prop('checked', previousState);
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Não foi possivel Completar a Requisição'
-                        });
-                    }
-                },
-                error: function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro ao processar a requisição.'
-                    });
-                }
-            });
-        });
-    });
-
-</script>

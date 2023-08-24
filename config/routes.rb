@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :users_project, only: [:index, :create, :destroy, :show] do
     patch 'update_user', to: 'users_project#update', on: :collection
-    get 'update_admin', to: 'users_project#update_admin', on: :collection
+    patch 'update_admin', to: 'users_project#update_admin', on: :collection
   end
 
   resources :noa_weather_stations do
