@@ -54,13 +54,13 @@
 
         <div class="card">
           <div class="card-body">
-
-            <table class="table table-striped table-hover">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover table-sm">
               <thead class="thead-dark">
               <tr>
                 <th scope="col">Código</th>
                 <th scope="col">Cidade</th>
-                <th scope="col">Sigla Estado</th>
+<!--                <th scope="col">Sigla Estado</th>-->
                 <th scope="col">Estado</th>
                 <th scope="col">Região</th>
                 <th scope="col">Latitude</th>
@@ -80,7 +80,7 @@
                   <tr id="station_<%= weather_station.id %>">
                     <td><%= weather_station.cdg_estacao %></td>
                     <td><%= weather_station.cidade %></td>
-                    <td><%= weather_station.sg_estado %></td>
+<!--                    <td><%#= weather_station.sg_estado %></td>-->
                     <td><%= weather_station.nme_estado %></td>
                     <td><%= weather_station.cdg_regiao %></td>
 
@@ -92,18 +92,18 @@
 
                     <td><%= weather_station.dta_inicio_operacao.to_date_b %></td>
 
-                    <td><%= weather_station.dta_inicio_operacao.to_date_b %></td>
+                    <td><%# weather_station.dta_fim_operacao.to_date_b %></td>
                     <td><%=  weather_station.status?  %></td>
                     <td>
                       <% if weather_station.status == 0 && current_user.admin %>
-                        <%= "<button class='btn btn-primary btn-block' onclick= submit_import_data('#{weather_station.id}')  style='padding: 3px;'> Importar </button>".html_safe %>
+                        <%= "<button class='btn btn-primary btn-block padding-border-my' onclick= submit_import_data('#{weather_station.id}') > Importar </button>".html_safe %>
                       <% end %>
                     </td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
-
+            </div>
             <div style="display: flex;justify-content: center;">
               <%= will_paginate @weather_stations, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
             </div>
