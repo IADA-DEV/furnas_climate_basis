@@ -33,6 +33,25 @@
     --green-2: #4d7530;
 }
 
+.button-dashbord {
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.button-active {
+    background: linear-gradient(to bottom right, #c06c0d, #a11214)!important;
+    /*background: linear-gradient(to bottom right, #f96200, #00263a )!important;*/
+}
+
+.button-active-color {
+    background: linear-gradient(to bottom right, #4d7530, #072e0d);
+}
+
+.apexcharts-tooltip.light .apexcharts-tooltip-title {
+    background: var( --green-1)!important;
+    border-bottom: 1px solid #ddd!important;;
+}
+
 .table-hover > tbody > tr:hover > * {
     --bs-table-accent-bg: hsla(152, 93%, 12%, 0.3) !important;
 }
@@ -58,19 +77,19 @@
     border-color: hsl(145, 100%, 17%);;
     box-shadow: 0 0 0 0.25rem hsla(145, 100%, 17%, 0.376);
   }
-  
+
 
   .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
     color: #fff;
     background-color: hsl(145, 100%, 17%);
     border-color: hsl(145, 100%, 17%);
   }
-  
+
 
   .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.25rem hsla(145, 100%, 17%, 0.506);
   }
-  
+
 
   .btn-primary:disabled, .btn-primary.disabled {
     color: #fff;

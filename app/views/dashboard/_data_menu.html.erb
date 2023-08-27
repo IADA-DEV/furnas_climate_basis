@@ -1,0 +1,22 @@
+<%= turbo_frame_tag 'render_table_dashbord' do %>
+  <div class="col-md-12 mb-5" style="text-align: center;'">
+    <%= link_to dashboard_index_path(type_data: true),
+                class: "btn btn-primary btn-block mt-3 mr-2 button-dashbord button-active-color #{'button-active' if @type_data}",
+                data: { turbo_frame: 'render_table_dashbord' } do %>
+      Dados <br> Diarios
+    <% end %>
+
+    <%= link_to dashboard_index_path(type_data: false),
+                class: "btn btn-primary btn-block mt-3 mr-2 button-dashbord button-active-color #{'button-active' unless @type_data}",
+                data: { turbo_frame: 'render_table_dashbord' } do %>
+      Dados <br> por Período
+    <% end %>
+  </div>
+
+
+  <% if @type_data %>
+    <%= render 'daily_data' %>
+  <% else %>
+    <%= render 'range_data' %>
+  <% end %>
+<% end %>

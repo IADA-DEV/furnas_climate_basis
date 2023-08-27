@@ -1,23 +1,16 @@
 class DashboardController < ApplicationController
-  before_action :cidade, only: [:index]
-  before_action :range, only: [:index]
+  before_action :default_filter, only: [:index]
   def index
-
     respond_to do |format|
-      if turbo_frame_request?
-        if params[:data_inicio].present?
-          data_weather
-          dados_diarios
-          partial = 'table_diaria'
-        else
-          partial = 'table_range'
-          data_weather_range
-        end
-        format.html { render partial: partial}
+      if @type_data
+        daily_today
       else
-        data_weather
-        dados_diarios
-        data_weather_range
+        data_range
+      end
+
+      if turbo_frame_request?
+        format.html { render partial: 'data_menu'}
+      else
         format.html
       end
     end
@@ -29,7 +22,22 @@ class DashboardController < ApplicationController
 
   private
 
-  def dados_diarios
+
+  def default_filter
+    @cidade = InmetWeatherStation.all.collect{ |t| t.cidade }.uniq
+    @type_data = !(params[:type_data] == "false")
+    @cdg_station = params[:cdg_station] ||= 'A002'
+
+    params[:range_data_fim] = Date.current.to_s if !params[:range_data_fim]
+    params[:range_data_inicio] = (params[:range_data_fim].to_date - 30.day).to_s if !params[:range_data_inicio]
+  end
+
+  def daily_today
+    @inmet_weather_data = InmetWeatherDatum
+                            .filter(by_cdg_station: @cdg_station,
+                                    by_dta_medicao: params[:data_inicio] || Date.current.to_s)
+                            .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
+
     @tem_ins = @inmet_weather_data.collect { |t| t.tem_ins.to_f.round(2) }.compact
     @umd_ins = @inmet_weather_data.collect { |t| t.umd_ins.to_f.round(2) }.compact
     @rad_glo = @inmet_weather_data.collect { |t| t.rad_glo.to_f.round(2) }.compact
@@ -39,18 +47,7 @@ class DashboardController < ApplicationController
     @time = @inmet_weather_data.collect { |t| t.hr_medicao.to_time_br }
   end
 
-  def cidade
-    @cidade = InmetWeatherStation.all.collect{ |t| t.cidade }.uniq
-  end
-
-  def data_weather
-    @inmet_weather_data = InmetWeatherDatum
-                            .filter(by_cdg_station: 'A002',
-                                    by_dta_medicao: params[:data_inicio] || Date.current.to_s)
-                            .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
-  end
-
-  def data_weather_range
+  def data_range
     @inmet_weather_data_range = InmetWeatherDatum
                             .filter(by_cdg_station: 'A002')
                             .where(dta_medicao: params[:range_data_inicio]..params[:range_data_fim])
@@ -85,11 +82,6 @@ class DashboardController < ApplicationController
     @pre_ins_range = @inmet_weather_data_range.collect { |t| t.avg_pre_ins.to_f.round(2) }.compact
     @ven_vel_range = @inmet_weather_data_range.collect { |t| t.avg_ven_vel.to_f.round(2) }.compact
     @time_range = @inmet_weather_data_range.collect { |t| t.dta_medicao.to_date_b }
-  end
-
-  def range
-    params[:range_data_fim] = Date.current.to_s if !params[:range_data_fim]
-    params[:range_data_inicio] = (params[:range_data_fim].to_date - 30.day).to_s if !params[:range_data_inicio]
   end
 
 end
