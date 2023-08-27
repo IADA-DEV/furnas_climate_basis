@@ -121,3 +121,12 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus{
     background: #ff000000;
     border: transparent;
 }
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: hsl(150, 94%, 12%);
+    border-width: 0.5px; /* Ajuste esse valor para controlar a espessura da borda */
+    outline: 0;
+    box-shadow: 0 0 0 0.125rem hsl(150, 94%, 12%);
+}
