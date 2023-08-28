@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_131009) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_27_224703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,6 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_131009) do
     t.datetime "hr_medicao", comment: "Hora (UTC)"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "data_time_brz"
+    t.index ["data_time_brz"], name: "index_inmet_weather_data_on_data_time_brz"
     t.index ["dta_medicao"], name: "index_inmet_weather_data_on_dta_medicao"
     t.index ["hr_medicao"], name: "index_inmet_weather_data_on_hr_medicao"
     t.index ["inmet_weather_station_id"], name: "index_inmet_weather_data_on_inmet_weather_station_id"

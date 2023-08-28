@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
   before_action :default_filter, only: [:index]
+  before_action :default_date
+
   def index
     respond_to do |format|
       if @type_data
@@ -22,66 +24,85 @@ class DashboardController < ApplicationController
 
   private
 
-
-  def default_filter
-    @cidade = InmetWeatherStation.all.collect{ |t| t.cidade }.uniq
-    @type_data = !(params[:type_data] == "false")
-    @cdg_station = params[:cdg_station] ||= 'A002'
-
-    params[:range_data_fim] = Date.current.to_s if !params[:range_data_fim]
-    params[:range_data_inicio] = (params[:range_data_fim].to_date - 30.day).to_s if !params[:range_data_inicio]
-  end
-
   def daily_today
-    @inmet_weather_data = InmetWeatherDatum
-                            .filter(by_cdg_station: @cdg_station,
-                                    by_dta_medicao: params[:data_inicio] || Date.current.to_s)
-                            .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
+    @inmet_weather_data = fetch_inmet_weather_data
 
-    @tem_ins = @inmet_weather_data.collect { |t| t.tem_ins.to_f.round(2) }.compact
-    @umd_ins = @inmet_weather_data.collect { |t| t.umd_ins.to_f.round(2) }.compact
-    @rad_glo = @inmet_weather_data.collect { |t| t.rad_glo.to_f.round(2) }.compact
-    @chuva = @inmet_weather_data.collect { |t| t.chuva.to_f.round(2) }.compact
-    @pre_ins = @inmet_weather_data.collect { |t| t.pre_ins.to_f.round(2) }.compact
-    @ven_vel = @inmet_weather_data.collect { |t| t.ven_vel.to_f.round(2) }.compact
-    @time = @inmet_weather_data.collect { |t| t.hr_medicao.to_time_br }
+    @tem_ins = fetch_and_process_data(:tem_ins)
+    @umd_ins = fetch_and_process_data(:umd_ins)
+    @rad_glo = fetch_and_process_data(:rad_glo)
+    @chuva   = fetch_and_process_data(:chuva)
+    @pre_ins = fetch_and_process_data(:pre_ins)
+    @ven_vel = fetch_and_process_data(:ven_vel)
+    @time    = @inmet_weather_data.collect { |t| t.data_time_brz.to_time_br }
   end
 
   def data_range
-    @inmet_weather_data_range = InmetWeatherDatum
-                            .filter(by_cdg_station: 'A002')
-                            .where(dta_medicao: params[:range_data_inicio]..params[:range_data_fim])
-                            .group(:dta_medicao)
-                            .select(
-                              :dta_medicao,
-                              "AVG(pre_ins) AS avg_pre_ins",
-                              "AVG(tem_sem) AS avg_tem_sem",
-                              "AVG(pre_max) AS avg_pre_max",
-                              "AVG(rad_glo) AS avg_rad_glo",
-                              "AVG(pto_ins) AS avg_pto_ins",
-                              "AVG(tem_min) AS avg_tem_min",
-                              "AVG(umd_min) AS avg_umd_min",
-                              "AVG(pto_max) AS avg_pto_max",
-                              "AVG(ven_dir) AS avg_ven_dir",
-                              "AVG(chuva) AS avg_chuva",
-                              "AVG(pre_min) AS avg_pre_min",
-                              "AVG(umd_max) AS avg_umd_max",
-                              "AVG(ven_vel) AS avg_ven_vel",
-                              "AVG(pto_min) AS avg_pto_min",
-                              "AVG(tem_max) AS avg_tem_max",
-                              "AVG(ven_raj) AS avg_ven_raj",
-                              "AVG(tem_ins) AS avg_tem_ins",
-                              "AVG(umd_ins) AS avg_umd_ins"
-                            )
-                            .order(:dta_medicao)
+    @inmet_weather_data = fetch_inmet_weather_data_range
 
-    @tem_ins_range = @inmet_weather_data_range.collect { |t| t.avg_tem_ins.to_f.round(2) }.compact
-    @umd_ins_range = @inmet_weather_data_range.collect { |t| t.avg_umd_ins.to_f.round(2) }.compact
-    @rad_glo_range = @inmet_weather_data_range.collect { |t| t.avg_rad_glo.to_f.round(2) }.compact
-    @chuva_range = @inmet_weather_data_range.collect { |t| t.avg_chuva.to_f.round(2) }.compact
-    @pre_ins_range = @inmet_weather_data_range.collect { |t| t.avg_pre_ins.to_f.round(2) }.compact
-    @ven_vel_range = @inmet_weather_data_range.collect { |t| t.avg_ven_vel.to_f.round(2) }.compact
-    @time_range = @inmet_weather_data_range.collect { |t| t.dta_medicao.to_date_b }
+    @tem_ins_range = fetch_and_process_data(:avg_tem_ins)
+    @umd_ins_range = fetch_and_process_data(:avg_umd_ins)
+    @rad_glo_range = fetch_and_process_data(:avg_rad_glo)
+    @chuva_range   = fetch_and_process_data(:avg_chuva)
+    @pre_ins_range = fetch_and_process_data(:avg_pre_ins)
+    @ven_vel_range = fetch_and_process_data(:avg_ven_vel)
+
+    @time_range    = @inmet_weather_data.collect { |t| t.data_time_brz.to_date_br }
+  end
+
+  private
+
+  def fetch_and_process_data(attribute)
+    @inmet_weather_data.collect { |t| t.public_send(attribute).to_f.round(2) }.compact
+  end
+
+  def fetch_inmet_weather_data
+    InmetWeatherDatum.filter(by_cdg_station: @cdg_station)
+                     .where(data_time_brz: params[:data_fim].beginning_of_day..params[:data_fim].end_of_day)
+                     .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
+  end
+
+  def fetch_inmet_weather_data_range
+    InmetWeatherDatum
+      .filter(by_cdg_station:  @cdg_station)
+      .where(data_time_brz: params[:data_inicio].beginning_of_day..params[:data_fim].end_of_day)
+      .group("DATE(data_time_brz)")
+      .select(*selection_attributes)
+      .order("data_time_brz")
+  end
+
+  def selection_attributes
+    [
+      "DATE(data_time_brz) as data_time_brz",
+      "AVG(pre_ins) AS avg_pre_ins",
+      "AVG(tem_sem) AS avg_tem_sem",
+      "AVG(pre_max) AS avg_pre_max",
+      "AVG(rad_glo) AS avg_rad_glo",
+      "AVG(pto_ins) AS avg_pto_ins",
+      "AVG(tem_min) AS avg_tem_min",
+      "AVG(umd_min) AS avg_umd_min",
+      "AVG(pto_max) AS avg_pto_max",
+      "AVG(ven_dir) AS avg_ven_dir",
+      "AVG(chuva) AS avg_chuva",
+      "AVG(pre_min) AS avg_pre_min",
+      "AVG(umd_max) AS avg_umd_max",
+      "AVG(ven_vel) AS avg_ven_vel",
+      "AVG(pto_min) AS avg_pto_min",
+      "AVG(tem_max) AS avg_tem_max",
+      "AVG(ven_raj) AS avg_ven_raj",
+      "AVG(tem_ins) AS avg_tem_ins",
+      "AVG(umd_ins) AS avg_umd_ins"
+    ]
+  end
+
+  def default_date
+    params[:data_fim] = params[:data_fim] || Time.current.to_brz.to_date
+    params[:data_inicio] = params[:data_inicio] || (Time.current.to_brz.to_date-30.day)
+  end
+
+  def default_filter
+    @cidade = InmetWeatherStation.all.collect{ |t| t.cidade }.uniq
+    @type_data = !(params[:type_data] == 'false')
+    @cdg_station = params[:cdg_station] ||= 'A002'
   end
 
 end
