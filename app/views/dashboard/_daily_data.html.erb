@@ -7,7 +7,7 @@
 <div class="col-md-12 mb-3" style="text-align: center;margin-top: 10px">
   <div class="col-md-3" style="margin: 0 auto;">
     <%= form_with url: dashboard_index_path, method: :get, data: { turbo_frame: 'render_table_dashbord' } do |f| %>
-      <%= f.date_field :data_inicio, class: 'form-control', value: params[:data_inicio] || Date.current.to_s, id: 'data_inicio_field' %>
+      <%= f.date_field :data_fim, class: 'form-control', value: params[:data_fim] || Date.current.to_s, id: 'data_inicio_field' %>
     <% end  %>
   </div>
 </div>

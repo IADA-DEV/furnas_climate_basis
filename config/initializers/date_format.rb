@@ -6,4 +6,8 @@ class Date
   def to_brz
     self.in_time_zone('Brasilia')
   end
+
+  def to_utc
+    self.in_time_zone('UTC')
+  end
 end

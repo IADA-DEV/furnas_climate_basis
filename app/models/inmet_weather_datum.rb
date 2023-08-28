@@ -71,8 +71,31 @@ class InmetWeatherDatum < ApplicationRecord
         date = Date.parse(data_str)
         hours = hr_min[0, 2].to_i
         minutes = hr_min[2, 2].to_i
-        # byebug
         return Time.zone.local(date.year, date.month, date.day, hours, minutes)
     end
 
+    def wind_direction_to_cardinal
+        # cardinal_directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+        cardinal_directions = [
+          "Norte",
+          "Norte-Nordeste",
+          "Nordeste",
+          "Leste-Nordeste",
+          "Leste",
+          "Leste-Sudeste",
+          "Sudeste",
+          "Sul-Sudeste",
+          "Sul",
+          "Sul-Sudoeste",
+          "Sudoeste",
+          "Oeste-Sudoeste",
+          "Oeste",
+          "Oeste-Noroeste",
+          "Noroeste",
+          "Norte-Noroeste"
+        ]
+
+        index = (ven_dir.to_f / 22.5 + 0.5).to_i % 16
+        cardinal_directions[index]
+    end
 end

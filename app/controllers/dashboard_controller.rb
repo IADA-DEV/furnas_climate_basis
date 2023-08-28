@@ -33,7 +33,7 @@ class DashboardController < ApplicationController
     @chuva   = fetch_and_process_data(:chuva)
     @pre_ins = fetch_and_process_data(:pre_ins)
     @ven_vel = fetch_and_process_data(:ven_vel)
-    @time    = @inmet_weather_data.collect { |t| t.data_time_brz.to_time_br }
+    @time    = @inmet_weather_data.collect { |t| t.hr_medicao.to_time_br }
   end
 
   def data_range
@@ -46,7 +46,7 @@ class DashboardController < ApplicationController
     @pre_ins_range = fetch_and_process_data(:avg_pre_ins)
     @ven_vel_range = fetch_and_process_data(:avg_ven_vel)
 
-    @time_range    = @inmet_weather_data.collect { |t| t.data_time_brz.to_date_br }
+    @time_range    = @inmet_weather_data.collect { |t| t.hr_medicao.to_date_br }
   end
 
   private
@@ -56,23 +56,34 @@ class DashboardController < ApplicationController
   end
 
   def fetch_inmet_weather_data
+    Time.use_zone("America/Sao_Paulo") do
+      @start_time = Time.zone.parse(params[:data_fim].to_s).beginning_of_day
+      @end_time = Time.zone.parse(params[:data_fim].to_s).end_of_day
+    end
+
     InmetWeatherDatum.filter(by_cdg_station: @cdg_station)
-                     .where(data_time_brz: params[:data_fim].beginning_of_day..params[:data_fim].end_of_day)
+                     .where(hr_medicao: @start_time..@end_time)
                      .order(:inmet_weather_station_id, :dta_medicao, :hr_medicao)
   end
 
+
   def fetch_inmet_weather_data_range
+    Time.use_zone("America/Sao_Paulo") do
+      @start_time = Time.zone.parse(params[:data_inicio].to_s).beginning_of_day
+      @end_time = Time.zone.parse(params[:data_fim].to_s).end_of_day
+    end
+
     InmetWeatherDatum
       .filter(by_cdg_station:  @cdg_station)
-      .where(data_time_brz: params[:data_inicio].beginning_of_day..params[:data_fim].end_of_day)
-      .group("DATE(data_time_brz)")
+      .where(hr_medicao: @start_time..@end_time)
+      .group("DATE(hr_medicao AT TIME ZONE 'UTC' AT TIME ZONE 'America/Sao_Paulo')")
       .select(*selection_attributes)
-      .order("data_time_brz")
+      .order("hr_medicao")
   end
 
   def selection_attributes
     [
-      "DATE(data_time_brz) as data_time_brz",
+      "DATE(hr_medicao AT TIME ZONE 'UTC' AT TIME ZONE 'America/Sao_Paulo') as hr_medicao",
       "AVG(pre_ins) AS avg_pre_ins",
       "AVG(tem_sem) AS avg_tem_sem",
       "AVG(pre_max) AS avg_pre_max",

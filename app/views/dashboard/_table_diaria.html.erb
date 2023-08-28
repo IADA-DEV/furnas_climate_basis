@@ -13,8 +13,7 @@
            <table class="table table-striped table-hover table-sm">
              <thead class="thead-dark">
              <tr>
-               <th scope="col">Data (UTC -3)</th>
-               <th scope="col">Hora (UTC -3)</th>
+               <th scope="col">Data - Hora (UTC -3)</th>
                <th scope="col">Radiacao </th>
                <th scope="col">Chuva </th>
                <th scope="col">Dir. Vento </th>
@@ -29,8 +28,7 @@
              <tbody>
              <% @inmet_weather_data.each do |weather_datum| %>
                <tr>
-                 <td><%= weather_datum.hr_medicao.to_date_br %></td>
-                 <td><%= weather_datum.hr_medicao.to_time_br %></td>
+                 <td><%= weather_datum.hr_medicao.to_brz.to_date_br %> - <%= weather_datum.hr_medicao.to_brz.to_time_br %></td>
                  <td><%= weather_datum.rad_glo %> (KJ/m¬≤)</td>
                  <td><%= weather_datum.chuva %> (mm)</td>
                  <td><%= weather_datum.wind_direction_to_cardinal %></td>
