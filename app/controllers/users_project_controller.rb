@@ -26,7 +26,6 @@ class UsersProjectController < ApplicationController
     end
   end
   def update
-    byebug
     @user = User.find(user_params[:id])
     if @user.update(user_params)
       render json: { status: 'success', message: 'Usuário Atualizado com Sucesso' }
