@@ -22,6 +22,14 @@ class DashboardController < ApplicationController
   def grafico
   end
 
+  def filter_station
+    config = current_user.config_system
+
+    if config.update_attribute(:cdg_station, params[:cdg_station])
+      redirect_to dashboard_index_path
+    end
+  end
+
   private
 
   def daily_today
@@ -111,9 +119,9 @@ class DashboardController < ApplicationController
   end
 
   def default_filter
-    @cidade = InmetWeatherStation.all.collect{ |t| t.cidade }.uniq
+    @cidade = InmetWeatherStation.all.collect{ |t| [t.cidade, t.cdg_estacao] }.uniq
     @type_data = !(params[:type_data] == 'false')
-    @cdg_station = params[:cdg_station] ||= 'A002'
+    @cdg_station = params[:cdg_station] ||= current_user.cdg_station
   end
 
 end

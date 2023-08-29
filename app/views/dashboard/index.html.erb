@@ -7,14 +7,23 @@
 
           <div class="col-md-12" style="text-align: center;margin-top: 50px">
             <div class="col-md-3" style="margin: 0 auto;">
-              <%= select_tag 'opcoes_select',
-                             options_for_select(@cidade.collect { |opcao| [opcao, opcao] }, ['GOIANIA']),
-                             { include_blank: 'Selecione uma opção',
-                               class: 'select2 form-control' } %>
+              <div data-controller="submit-form">
+                <%= form_with url: filter_station_dashboard_index_path(), method: :patch do |f| %>
+                    <%= f.select :cdg_station,
+                                 options_for_select(@cidade, params[:cdg_station]),
+                                 { include_blank: 'Selecione' },
+                                 class: 'select2 form-control', id: 'subscriber-tags-select', data: { 'submit-form-target': 'cdgStation' } %>
+                    <%= f.hidden_field :partial, value: 'data_menu' %>
+                <% end %>
+
+              </div>
             </div>
           </div>
+        </div>
 
-          <%= render 'data_menu' %>
+        <%= render 'data_menu' %>
+
+
 
         </div>
       </div>
@@ -23,4 +32,3 @@
   </div>
 
 </section>
-

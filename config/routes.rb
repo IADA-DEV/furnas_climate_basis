@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :dashboard do
     get 'grafico', on: :collection
+    patch 'filter_station', on: :collection
   end
 
   # Defines the root path route ("/")

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_01_131009) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_29_122624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,6 +96,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_131009) do
     t.datetime "updated_at", null: false
     t.index ["cdg_estacao"], name: "index_noa_weather_stations_on_cdg_estacao"
     t.index ["name"], name: "index_noa_weather_stations_on_name"
+  end
+
+  create_table "syestem_configs", force: :cascade do |t|
+    t.string "cdg_station", default: "A002"
+    t.boolean "status_menu", default: true
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_syestem_configs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
