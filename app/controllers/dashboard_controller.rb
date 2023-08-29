@@ -11,7 +11,7 @@ class DashboardController < ApplicationController
       end
 
       if turbo_frame_request?
-        format.html { render partial: 'data_menu'}
+        format.html { render partial: params[:partial]}
       else
         format.html
       end
@@ -33,7 +33,7 @@ class DashboardController < ApplicationController
     @chuva   = fetch_and_process_data(:chuva)
     @pre_ins = fetch_and_process_data(:pre_ins)
     @ven_vel = fetch_and_process_data(:ven_vel)
-    @time    = @inmet_weather_data.collect { |t| t.hr_medicao.to_time_br }
+    @time    = @inmet_weather_data.collect { |t| t.hr_medicao.to_brz.to_time_br }
   end
 
   def data_range

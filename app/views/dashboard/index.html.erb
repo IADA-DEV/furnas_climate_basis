@@ -24,39 +24,3 @@
 
 </section>
 
-
-
-<script>
-    window.addEventListener('DOMContentLoaded', () => {
-        $('.select2').select2();
-    })
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const dataInicioField = document.getElementById('data_inicio_field');
-
-        dataInicioField.addEventListener('change', () => {
-            const form = dataInicioField.closest('form');
-            form.requestSubmit();
-        });
-
-        const rangeDataInicioField = document.getElementById('range_data_inicio_field');
-        const rangeDataFimField = document.getElementById('range_data_fim_field');
-
-        rangeDataInicioField.addEventListener('change', () => {
-            if (rangeDataFimField.value) {
-                const form = rangeDataInicioField.closest('form');
-                form.requestSubmit();
-            }
-        });
-
-        rangeDataFimField.addEventListener('change', () => {
-            if (rangeDataInicioField.value) {
-                const form = rangeDataFimField.closest('form');
-                form.requestSubmit();
-            }
-        });
-    });
-
-</script>
-
-

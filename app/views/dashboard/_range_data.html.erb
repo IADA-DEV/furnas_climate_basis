@@ -4,23 +4,30 @@
   </h1>
 </div>
 
-<%= form_with url: dashboard_index_path, method: :get, data: { turbo_frame: 'render_table_dashbord' } do |f| %>
-  <div class="col-md-12 mb-3" style="text-align: center;margin-top: 10px;">
-    <div class="d-flex justify-content-center">
-      <div class="col-md-2" style="margin-right: 10px;">
-        <div class="form-group">
-          <%= f.label :data_inicio, "Data de Início", style: 'color: white' %>
-          <%= f.date_field :data_inicio, class: 'form-control', id: 'range_data_inicio_field', value: params[:data_inicio] %>
+<div data-controller="range-data">
+  <%= form_with url: dashboard_index_path, method: :get, data: { turbo_frame: 'render_table_dashbord_range_data' } do |f| %>
+    <%= f.hidden_field :partial, value: 'table_range' %>
+    <%= f.hidden_field :type_data, value: false %>
+
+    <div class="col-md-12 mb-3" style="text-align: center;margin-top: 10px;">
+      <div class="d-flex justify-content-center">
+        <div class="col-md-2" style="margin-right: 10px;">
+          <div class="form-group">
+            <%= f.label :data_inicio, "Data de Início", style: 'color: white' %>
+            <%= f.date_field :data_inicio, class: 'form-control', id: 'range_data_inicio_field', value: params[:data_inicio], data: { 'range-data-target': 'inicioField' } %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :data_fim, "Data de Fim", style: 'color: white'  %>
-          <%= f.date_field :data_fim, class: 'form-control', id: 'range_data_fim_field', value: params[:data_fim] %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :data_fim, "Data de Fim", style: 'color: white'  %>
+            <%= f.date_field :data_fim, class: 'form-control', id: 'range_data_fim_field', value: params[:data_fim], data: { 'range-data-target': 'fimField' } %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
+
 
 <%= render 'table_range' %>
