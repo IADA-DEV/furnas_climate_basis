@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-body">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button style="margin-left: 10px;" class="btn btn-primary active" id="line-<%= id%>-tab" data-bs-toggle="pill" data-bs-target="#line-<%= id%>" type="button" role="tab" aria-controls="line-<%= id%>" aria-selected="true">Linha</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button style="margin-left: 10px;" class="btn btn-primary" id="bar-<%=id%>-tab" data-bs-toggle="pill" data-bs-target="#bar-<%=id%>" type="button" role="tab" aria-controls="bar-<%=id%>" aria-selected="false">Histograma</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button style="margin-left: 10px;" class="btn btn-primary" id="box-<%=id%>-tab" data-bs-toggle="pill" data-bs-target="#box-<%=id%>" type="button" role="tab" aria-controls="box-<%=id%>" aria-selected="false">BoxPlot</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="line-<%= id%>" role="tabpanel" aria-labelledby="line-<%= id%>-tab">
+        <%= render partial: 'temp', locals: { dados: dados,
+                                              time: time,
+                                              id: "chats_line_#{id}",
+                                              name_y: type,
+                                              name_x: id,
+                                              type: type,
+                                              unidade: unidade } %>
+      </div>
+      <div class="tab-pane fade" id="bar-<%=id%>" role="tabpanel" aria-labelledby="bar-<%=id%>-tab">
+        <%= render partial: 'periodo', locals: { dados: dados,
+                                                 time: time,
+                                                 id: "chats_histogram_#{id}",
+                                                 name_y: type,
+                                                 name_x: id,
+                                                 type: type,
+                                                 unidade: unidade} %>
+      </div>
+      <div class="tab-pane fade" id="box-<%=id%>" role="tabpanel" aria-labelledby="box-<%=id%>-tab">
+        <%= render partial: 'box_plot', locals: { dados: box_plot_data,
+                                                  id: "chats_box_#{id}",
+                                                  name_y: type,
+                                                  name_x: id,
+                                                  type: type,
+                                                  unidade: unidade} %>
+      </div>
+    </div>
+  </div>
+</div>

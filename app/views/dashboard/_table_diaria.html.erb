@@ -1,11 +1,17 @@
 <%= turbo_frame_tag 'render_table_dashbord_table_diaria' do %>
   <div class="row mt-3">
-      <%= render partial: 'temp', locals: { dados: @tem_ins, time: @time, id: 'temperatura' } %>
-      <%= render partial: 'temp', locals: { dados: @umd_ins, time: @time, id: 'humidade' } %>
-      <%= render partial: 'temp', locals: { dados: @rad_glo, time: @time, id: 'radiacao' } %>
-      <%= render partial: 'temp', locals: { dados: @ven_vel, time: @time, id: 'vento' } %>
-      <%= render partial: 'temp', locals: { dados: @chuva, time: @time, id: 'chuva' } %>
-      <%= render partial: 'temp', locals: { dados: @pre_ins, time: @time, id: 'Pressão' } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @tem_ins, time: @time, id: 'TEMPERATURA', type: 'HORA' , unidade: "ºC"      , box_plot_data: @tem_ins_stats} %>
+    <%= render partial: 'card_data',
+               locals: { dados: @umd_ins, time: @time, id: 'HUMIDADE',    type: 'HORA' , unidade: "%"       , box_plot_data: @umd_ins_stats} %>
+    <%= render partial: 'card_data',
+               locals: { dados: @rad_glo, time: @time, id: 'RADIAÇÃO',    type: 'HORA' , unidade: "(KJ/m¬≤)", box_plot_data: @rad_glo_stats} %>
+    <%= render partial: 'card_data',
+               locals: { dados: @ven_vel, time: @time, id: 'VENTO',       type: 'HORA' , unidade: "m/s"     , box_plot_data: @ven_vel_stats} %>
+    <%= render partial: 'card_data',
+               locals: { dados: @chuva,   time: @time, id: 'CHUVA',       type: 'HORA' , unidade: "mm"      , box_plot_data: @chuva_stats  } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @pre_ins, time: @time, id: 'PRESSÃO',     type: 'HORA' , unidade: "hPa"     , box_plot_data: @pre_ins_stats} %>
 
      <div class="col-sm-12 col-xl-12 box-col-12">
        <div class="card">
@@ -29,7 +35,7 @@
                <tbody>
                <% @inmet_weather_data.each do |weather_datum| %>
                  <tr>
-                   <td><%= weather_datum.hr_medicao.to_brz.to_date_br %> - <%= weather_datum.hr_medicao.to_brz.to_time_br %></td>
+                   <td><%= weather_datum.hr_medicao.to_brz.to_date_b %> - <%= weather_datum.hr_medicao.to_brz.to_time_b %></td>
                    <td><%= weather_datum.rad_glo %> (KJ/m¬≤)</td>
                    <td><%= weather_datum.chuva %> (mm)</td>
                    <td><%= weather_datum.wind_direction_to_cardinal %></td>

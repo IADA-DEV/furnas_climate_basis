@@ -1,0 +1,44 @@
+<% if dados.present? %>
+    <div id="<%= id %>"></div>
+
+    <script>
+        var options = {
+            series: [
+                {
+                    type: 'boxPlot',
+                    data: [
+                      <% dados.each do |t| %>
+                        {
+                            x: '<%= t[:date] %>',
+                            y: <%= t[:data] %>
+                        },
+                      <% end %>
+
+                    ]
+                }
+            ],
+            chart: {
+                type: 'boxPlot',
+                height: 350
+            },
+            title: {
+                text: '<%= name_x %>',
+                align: 'left'
+            },
+            theme: {
+                palette: 'palette1' // upto palette10
+            },
+            plotOptions: {
+                boxPlot: {
+                    colors: {
+                        upper: '#5C4742',
+                        lower: '#A5978B'
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#<%= id %>"), options);
+        chart.render();
+    </script>
+<% end %>

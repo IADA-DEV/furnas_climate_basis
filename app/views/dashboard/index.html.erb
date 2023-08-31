@@ -6,24 +6,21 @@
         <div class="row">
 
           <div class="col-md-12" style="text-align: center;margin-top: 50px">
-            <div class="col-md-3" style="margin: 0 auto;">
               <div data-controller="submit-form">
                 <%= form_with url: filter_station_dashboard_index_path(), method: :patch do |f| %>
+                  <div class="col-md-3" style="margin: 0 auto;">
                     <%= f.select :cdg_station,
                                  options_for_select(@cidade, params[:cdg_station]),
                                  { include_blank: 'Selecione' },
                                  class: 'select2 form-control', id: 'subscriber-tags-select', data: { 'submit-form-target': 'cdgStation' } %>
+                  </div>
                     <%= f.hidden_field :partial, value: 'data_menu' %>
                 <% end %>
-
               </div>
-            </div>
           </div>
         </div>
 
         <%= render 'data_menu' %>
-
-
 
         </div>
       </div>

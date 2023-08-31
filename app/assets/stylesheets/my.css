@@ -211,3 +211,13 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus{
     padding-left: 7px!important;
     padding-right: 6px!important;
 }
+
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background: linear-gradient(to bottom right, #c06c0d, #a11214)!important;
+    border-color: #a93a13;
+}
+
+.apexcharts-theme-light {
+    color: black!important;
+}

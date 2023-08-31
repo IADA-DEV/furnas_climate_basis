@@ -1,9 +1,9 @@
 class Time
-  def to_time_br
+  def to_time_b
     self.strftime('%H:%M')
   end
 
-  def to_date_br
+  def to_date_b
     self.strftime('%d/%m/%Y')
   end
 
