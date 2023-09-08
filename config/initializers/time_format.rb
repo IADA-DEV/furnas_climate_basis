@@ -3,6 +3,14 @@ class Time
     self.strftime('%H:%M')
   end
 
+  def to_dt
+    self.strftime('%H:%M - %d/%m/%Y')
+  end
+
+  def to_dt_not_Y
+    self.strftime('%H:%M - %d/%m').split(' - ')
+  end
+
   def to_date_b
     self.strftime('%d/%m/%Y')
   end

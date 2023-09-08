@@ -98,4 +98,20 @@ class InmetWeatherDatum < ApplicationRecord
         index = (ven_dir.to_f / 22.5 + 0.5).to_i % 16
         cardinal_directions[index]
     end
+
+    def self.fetch_and_process_data(attribute)
+        self.all.collect { |t| [t.public_send(attribute).to_f.round(2), t.hr_medicao.to_brz.to_dt_not_Y] }.compact
+    end
+
+    def self.fetch_and_process_data_m(attribute)
+        grouped_data = self.all.group_by { |t| t.hr_medicao.to_date }
+        result = grouped_data.map do |date, data|
+            [
+              (data.map { |t| t.public_send(attribute).to_f }.sum / data.size).round(2),
+              date.to_date_b
+            ]
+        end
+
+        result
+    end
 end

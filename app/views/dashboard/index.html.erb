@@ -1,30 +1,57 @@
 <section class="background-radial-gradient overflow-hidden">
+
   <div class="row" style="height: 100vh;overflow-x: auto;">
-    <div class="row" style="height: 100vh; padding: 30px 10px 10px 50px">
-
-      <div class="container-fluid">
-        <div class="row">
-
-          <div class="col-md-12" style="text-align: center;margin-top: 50px">
-              <div data-controller="submit-form">
-                <%= form_with url: filter_station_dashboard_index_path(), method: :patch do |f| %>
-                  <div class="col-md-3" style="margin: 0 auto;">
-                    <%= f.select :cdg_station,
-                                 options_for_select(@cidade, params[:cdg_station]),
-                                 { include_blank: 'Selecione' },
-                                 class: 'select2 form-control', id: 'subscriber-tags-select', data: { 'submit-form-target': 'cdgStation' } %>
-                  </div>
-                    <%= f.hidden_field :partial, value: 'data_menu' %>
-                <% end %>
-              </div>
+    <div class= 'button-active-color'>
+      <div data-controller="submit-form">
+        <%= form_with url: dashboard_index_path, method: :get, data: { turbo_frame: 'render_table_dashbord' } do |f| %>
+          <div style="display: flex; padding: 10px; margin-left: 30px;" >
+            <div style="width: 250px;">
+              <%= f.label :cdg_station, "Cidade", style: 'color: white; font-size:14px' %>
+              <%= f.select :cdg_station,
+                           options_for_select(@cidade, params[:cdg_station]),
+                           { },
+                           class: 'select2 form-control',
+                           style: 'important; font-size:14px',
+                           id: 'subscriber-tags-select',
+                           data: { 'submit-form-target': 'cdgStation' } %>
+            </div>
+            <div style="width: 250px; margin-left: 10px">
+              <%= f.label :amostragem, "Amostragem", style: 'color: white; font-size:14px' %>
+              <%= f.select :amostragem,
+                           options_for_select(["Hora a Hora", "Média Diária"], params[:amostragem]),
+                           { },
+                           class: 'select2 form-control',
+                           style: 'important; font-size:14px',
+                           id: 'amostragem-select',
+                           data: { 'submit-form-target': 'amostragem' } %>
+            </div>
+            <div style="width: 250px; margin-left: 10px;">
+              <%= f.label :data_inicio, "Data de Início", style: 'color: white; font-size:14px' %>
+              <%= f.date_field :data_inicio,
+                               class: 'form-control',
+                               style: 'height: 30px;',
+                               id: 'iddataInicioField',
+                               value: params[:data_inicio],
+                               data: { 'submit-form-target': 'dataInicioField' } %>
+            </div>
+            <div style="width: 250px; margin-left: 10px">
+              <%= f.label :data_fim, "Data de Fím", style: 'color: white; font-size:14px' %>
+              <%= f.date_field :data_fim,
+                               class: 'form-control',
+                               style: 'height: 30px;',
+                               id: 'iddataFimField',
+                               value: params[:data_fim],
+                               data: { 'submit-form-target': 'dataFimField' } %>
+            </div>
           </div>
-        </div>
-
-        <%= render 'data_menu' %>
-
-        </div>
+        <% end %>
       </div>
+    </div>
 
+    <div class="row" style="height: 100vh; padding: 30px 10px 10px 50px">
+      <div class="container-fluid">
+        <%= render 'data_menu' %>
+      </div>
     </div>
   </div>
 

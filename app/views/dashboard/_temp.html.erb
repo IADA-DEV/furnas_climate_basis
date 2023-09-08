@@ -1,5 +1,4 @@
  <div id="<%= id %>"></div>
-
 <script>
     var options = {
         series: [
@@ -40,17 +39,20 @@
             size: 1
         },
         xaxis: {
-            categories: <%= raw time %>,
+            categories: <%= raw (time ? time.to_json : []) %>,
             title: {
                 text: '<%= type %>'
+            },
+            labels: {
+                rotate: 0
             }
+
         },
         yaxis: {
             title: {
                 text: '<%= name_x.upcase %>'
             },
-            min: <%= (dados.min || 0) - 20 %>,
-            max: <%= (dados.max || 0) + 30 %>,
+<!--            max: <%#= (dados&.max || 0) + 10 %>,-->
             labels: {
                 show: false,
                 formatter: function (val) {

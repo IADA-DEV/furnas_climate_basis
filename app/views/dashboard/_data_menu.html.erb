@@ -1,23 +1,58 @@
 <%= turbo_frame_tag 'render_table_dashbord' do %>
-
-  <div class="col-md-12 mb-5" style="text-align: center;'">
-    <%= link_to dashboard_index_path(type_data: true, partial: 'data_menu'),
-                class: "btn btn-primary btn-block mt-3 mr-2 button-dashbord button-active-color #{'button-active' if @type_data}",
-                data: { turbo_frame: 'render_table_dashbord' } do %>
-      Dados <br> Diarios
-    <% end %>
-
-    <%= link_to dashboard_index_path(type_data: false, partial: 'data_menu'),
-                class: "btn btn-primary btn-block mt-3 mr-2 button-dashbord button-active-color #{'button-active' unless @type_data}",
-                data: { turbo_frame: 'render_table_dashbord' } do %>
-      Dados <br> por Período
-    <% end %>
+  <div class="row mt-3">
+    <%= render partial: 'card_data',
+               locals: { dados: @temperatura || [], time: @time, id: 'TEMPERATURA', type: 'HORA' , unidade: " ºC"      , box_plot_data: [] } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @humidade || [],    time: @time, id: 'HUMIDADE',    type: 'HORA' , unidade: " %"       , box_plot_data: [] } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @chuva || [],       time: @time, id: 'CHUVA',       type: 'HORA' , unidade: " mm"      , box_plot_data: [] } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @radiacao || [],    time: @time, id: 'RADIAÇÃO',    type: 'HORA' , unidade: " (KJ/m¬≤)", box_plot_data: [] } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @vento || [],       time: @time, id: 'VENTO',       type: 'HORA' , unidade: " m/s"     , box_plot_data: [] } %>
+    <%= render partial: 'card_data',
+               locals: { dados: @presao || [],      time: @time, id: 'PRESSÃO',     type: 'HORA' , unidade: " hPa"     , box_plot_data: [] } %>
   </div>
 
-  <% if @type_data %>
-    <%= render 'daily_data' %>
-  <% else %>
-    <%= render 'range_data' %>
-  <% end %>
+  <div class="col-sm-12 col-xl-12 box-col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-sm">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">Data - Hora (UTC -3)</th>
+              <th scope="col">Radiacao </th>
+              <th scope="col">Chuva </th>
+              <th scope="col">Dir. Vento </th>
+              <th scope="col">Vel. Vento </th>
+              <th scope="col">Raj. Vento </th>
+              <th scope="col">Pressao </th>
+              <th scope="col">Pto Orvalho</th>
+              <th scope="col">Temperatura </th>
+              <th scope="col">Umidade </th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @data.each do |weather_datum| %>
+              <tr>
+                <td><%= weather_datum.hr_medicao.to_brz.to_date_b %> - <%= weather_datum.hr_medicao.to_brz.to_time_b %></td>
+                <td><%= weather_datum.rad_glo %> (KJ/m¬≤)</td>
+                <td><%= weather_datum.chuva %> (mm)</td>
+                <td><%= weather_datum.wind_direction_to_cardinal %></td>
+                <td><%= weather_datum.ven_vel %> (m/s)</td>
+                <td><%= weather_datum.ven_raj %> (m/s)</td>
+                <td><%= weather_datum.pre_ins %> (hPa)</td>
+                <td><%= weather_datum.pto_ins %> (C)</td>
+                <td><%= weather_datum.tem_ins %> (C)</td>
+                <td><%= weather_datum.umd_ins %> (%)</td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <% end %>
