@@ -103,8 +103,7 @@ class InmetWeatherDatum < ApplicationRecord
         self.all.collect { |t| [t.public_send(attribute).to_f.round(2), t.hr_medicao.to_brz.to_dt_not_Y] }.compact
     end
 
-    def self.fetch_and_process_data_m(attribute)
-        grouped_data = self.all.group_by { |t| t.hr_medicao.to_date }
+    def self.fetch_and_process_data_m(attribute, grouped_data)
         result = grouped_data.map do |date, data|
             [
               (data.map { |t| t.public_send(attribute).to_f }.sum / data.size).round(2),

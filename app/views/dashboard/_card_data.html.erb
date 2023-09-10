@@ -22,13 +22,12 @@
                                               unidade: unidade } %>
       </div>
       <div class="tab-pane fade" id="bar-<%=id%>" role="tabpanel" aria-labelledby="bar-<%=id%>-tab">
-        <%= render partial: 'periodo', locals: { dados: dados,
-                                                 time: time,
+        <%= render partial: 'periodo', locals: { dados: histograma,
                                                  id: "chats_histogram_#{id}",
                                                  name_y: type,
                                                  name_x: id,
                                                  type: type,
-                                                 unidade: unidade} %>
+                                                 unidade: ''} %>
       </div>
       <div class="tab-pane fade" id="box-<%=id%>" role="tabpanel" aria-labelledby="box-<%=id%>-tab">
         <%= render partial: 'box_plot', locals: { dados: box_plot_data,

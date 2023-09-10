@@ -4,7 +4,7 @@
     var options = {
         series: [{
             name: '<%= name_x %>',
-            data: <%= raw dados %>
+            data: <%= raw dados.map { |data| data[:y] }.to_json %>
         }],
         chart: {
             height: 350,
@@ -34,7 +34,7 @@
         },
 
         xaxis: {
-            categories: <%= raw time %>,
+            categories: <%= raw dados.map { |data| data[:x] }.to_json %>,
             position: 'bottom',
             axisBorder: {
                 show: false
@@ -75,7 +75,7 @@
         title: {
             text: '<%= name_x %>',
             floating: true,
-            offsetY: 330,
+            offsetY: 0,
             align: 'center',
             style: {
                 color: '#444'
