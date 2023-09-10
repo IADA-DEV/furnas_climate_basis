@@ -30,19 +30,77 @@ class DashboardController < ApplicationController
     end
 
     data_histograma
+    box_plot
   end
 
   def data_histograma
-    @temperatura_histograma = calcular_histograma(@temperatura, ' ºC')
-    @humidade_histograma = calcular_histograma(@humidade, ' %')
-    @chuva_histograma = calcular_histograma(@chuva, ' mm')
-    @radiacao_histograma = calcular_histograma(@radiacao, ' (KJ/m¬≤)')
-    @vento_histograma = calcular_histograma(@vento, ' m/s')
-    @presao_histograma = calcular_histograma(@presao, ' hPa')
+    @temperatura_histograma = calcular_histograma(@temperatura || [], ' ºC')
+    @humidade_histograma = calcular_histograma(@humidade || [], ' %')
+    @chuva_histograma = calcular_histograma(@chuva || [], ' mm')
+    @radiacao_histograma = calcular_histograma(@radiacao || [], ' (KJ/m¬≤)')
+    @vento_histograma = calcular_histograma(@vento || [], ' m/s')
+    @presao_histograma = calcular_histograma(@presao || [], ' hPa')
+  end
+  def box_plot
+    grouped_data = @data.group_by { |t| t.hr_medicao.to_brz.to_date }
+    @temperatura_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:tem_ins, grouped_data))
+  end
+
+  def calcular_limites_e_outliers(dados_lista)
+
+    resultados_data = []
+    resultados_autiliers = []
+
+    dados_lista.each do |dados_objeto|
+      # Extrair os dados e a data do objeto
+      dados, data = dados_objeto[0], dados_objeto[1]
+
+      # Ordenar os dados
+      sorted_data = dados.sort
+
+      # Calcular os quartis manualmente
+      n = sorted_data.length
+      q1_index = (n + 1) * 0.25
+      q2_index = (n + 1) * 0.5
+      q3_index = (n + 1) * 0.75
+
+      q1 = sorted_data[q1_index.floor - 1] + (q1_index - q1_index.floor) * (sorted_data[q1_index.floor] - sorted_data[q1_index.floor - 1])
+      q2 = sorted_data[q2_index.floor - 1] + (q2_index - q2_index.floor) * (sorted_data[q2_index.floor] - sorted_data[q2_index.floor - 1])
+      q3 = sorted_data[q3_index.floor - 1] + (q3_index - q3_index.floor) * (sorted_data[q3_index.floor] - sorted_data[q3_index.floor - 1])
+
+      # Calcular o intervalo interquartil (IQR)
+      iqr = q3 - q1
+
+      # Definir limites para identificar outliers
+      lower_bound = q1 - 0.9 * iqr
+      upper_bound = q3 + 0.9 * iqr
+
+      # Identificar outliers
+      outliers = dados.select { |x| x < lower_bound || x > upper_bound }
+
+      # Formatar os dados no formato necessário para o ApexCharts
+      formatted_data = {
+        x: data.to_s, # Converter a data para milissegundos
+        y: [lower_bound.round(2), q1.round(2), q2.round(2), q3.round(2), upper_bound.round(2)]
+      }
+
+      # Formatar os outliers
+      formatted_outliers = {
+        x: data.to_s, # Converter a data para milissegundos
+        y: outliers
+      }
+
+      # Adicionar os dados formatados à lista de resultados
+      resultados_data << formatted_data
+      resultados_autiliers << formatted_outliers
+    end
+
+    # Retornar os resultados como um array de objetos Ruby
+    return [resultados_data, resultados_autiliers]
   end
 
   def diario
-    @grouped_data = @data.group_by { |t| t.hr_medicao.to_date }
+    @grouped_data = @data.group_by { |t| t.hr_medicao.to.to_brz.to_date }
 
     @temperatura, @time = @data.fetch_and_process_data_m(:tem_ins, @grouped_data).transpose
     @humidade, @time    = @data.fetch_and_process_data_m(:umd_ins, @grouped_data).transpose

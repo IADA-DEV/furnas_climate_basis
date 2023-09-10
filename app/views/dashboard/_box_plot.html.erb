@@ -1,44 +1,36 @@
-<% if dados.first.present? %>
-    <div id="<%= id %>"></div>
 
+    <div id="<%= id %>"></div>
     <script>
         var options = {
             series: [
                 {
+                    name: 'box',
                     type: 'boxPlot',
-                    data: [
-                      <% dados.each do |t| %>
-                        {
-                            x: '<%= t[:date] %>',
-                            y: <%= t[:data] %>
-                        },
-                      <% end %>
-
-                    ]
+                    data: <%= raw dados[0].to_json %>
+                },
+                {
+                    name: 'outliers',
+                    type: 'scatter',
+                    data: <%= raw dados[1].to_json %>
                 }
             ],
             chart: {
                 type: 'boxPlot',
                 height: 350
             },
+            colors: ['#008FFB', '#FEB019'],
             title: {
-                text: '<%= name_x %>',
+                text: '<%= name_x.upcase %>',
                 align: 'left'
             },
-            theme: {
-                palette: 'palette1' // upto palette10
+            xaxis: {
             },
-            plotOptions: {
-                boxPlot: {
-                    colors: {
-                        upper: '#5C4742',
-                        lower: '#A5978B'
-                    }
-                }
+            tooltip: {
+                shared: false,
+                intersect: true
             }
         };
 
         var chart = new ApexCharts(document.querySelector("#<%= id %>"), options);
         chart.render();
     </script>
-<% end %>

@@ -113,4 +113,15 @@ class InmetWeatherDatum < ApplicationRecord
 
         result
     end
+
+    def self.fetch_and_process_data_g(attribute, grouped_data)
+        result = grouped_data.map do |date, data|
+            [
+              data.map { |t| t.public_send(attribute).to_f.round(2) },
+              date.to_date_b
+            ]
+        end
+
+        result
+    end
 end
