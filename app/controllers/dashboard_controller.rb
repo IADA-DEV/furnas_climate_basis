@@ -100,7 +100,7 @@ class DashboardController < ApplicationController
   end
 
   def diario
-    @grouped_data = @data.group_by { |t| t.hr_medicao.to.to_brz.to_date }
+    @grouped_data = @data.group_by { |t| t.hr_medicao.to_brz.to_date }
 
     @temperatura, @time = @data.fetch_and_process_data_m(:tem_ins, @grouped_data).transpose
     @humidade, @time    = @data.fetch_and_process_data_m(:umd_ins, @grouped_data).transpose
@@ -153,6 +153,11 @@ class DashboardController < ApplicationController
     # Verifique se ainda há dados restantes após a remoção dos zeros
     if data.empty?
       puts "Não há dados para calcular o histograma, pois todos os valores são zero."
+      return []
+    end
+
+    if data.count <= 1
+      puts "Quantidade invalida para fazer analesi de histograma"
       return []
     end
 
