@@ -1,0 +1,49 @@
+<section class="background-radial-gradient overflow-hidden">
+
+  <div style="height: 100vh;overflow-x: auto;">
+    <div style="height: 100vh; padding: 30px 10px 10px 50px">
+
+      <div id="">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover table-sm">
+                <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Model</th>
+                  <th scope="col">Erro</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% @log_erros.each do |log| %>
+                    <tr id="station_<%= log.id %>">
+                      <td><%= log.model %></td>
+                      <td><%= log.erro %></td>
+                      <td><%= log.created_at.to_brz.to_dt %></td>
+                      <td>
+                        <%= render 'modal_description', object: log %>
+
+                        <button class="btn" style="padding: 4px" data-controller="logs-project" data-action="click->logs-project#confirmDelete" data-log-id="<%= log.id %>">
+                          <i class="bi bi-trash-fill"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <div style="display: flex;justify-content: center;">
+              <%= will_paginate @log_erros, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>

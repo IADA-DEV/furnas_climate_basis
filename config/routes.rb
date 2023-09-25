@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get 'grafico', on: :collection
   end
 
+  resources :log_erros
+
   # Defines the root path route ("/")
   root "dashboard#index"
 end

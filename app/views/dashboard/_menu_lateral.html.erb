@@ -76,6 +76,12 @@
     </div>
 
     <div class="bottom-content">
+      <li class="nav-link">
+        <%= link_to log_erros_path do  %>
+          <i class="bi bi-bug-fill icon"></i>
+          <span class="text nav-text">Logs Erros</span>
+        <% end %>
+      </li>
       <% if ENV.fetch("RAILS_ENV", "development") == "development"  %>
         <li class="nav-link">
           <%= link_to grafico_dashboard_index_path do  %>
