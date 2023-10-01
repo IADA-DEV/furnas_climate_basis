@@ -62,14 +62,14 @@
           <%= link_to sidekiq_web_path, target:"_blank" do  %>
             <i class="bi bi-diagram-3-fill icon"></i>
             <span class="text nav-text">Processos</span>
-          <% end %>
+          <% end if current_user.admin %>
         </li>
 
         <li class="nav-link" >
           <%= link_to users_project_index_path do  %>
             <i class="bi bi-person-vcard icon"></i>
             <span class="text nav-text">Usuarios</span>
-          <% end %>
+          <% end if current_user.admin %>
         </li>
 
       </ul>
@@ -80,14 +80,14 @@
         <%= link_to log_erros_path do  %>
           <i class="bi bi-bug-fill icon"></i>
           <span class="text nav-text">Logs Erros</span>
-        <% end %>
+        <% end if current_user.admin %>
       </li>
       <% if ENV.fetch("RAILS_ENV", "development") == "development"  %>
         <li class="nav-link">
           <%= link_to grafico_dashboard_index_path do  %>
             <i class="bi bi-stack icon"></i>
             <span class="text nav-text">Graficos</span>
-          <% end %>
+          <% end if current_user.admin %>
         </li>
       <% end %>
       <li>
