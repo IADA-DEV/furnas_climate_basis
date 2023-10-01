@@ -57,6 +57,8 @@ class DashboardController < ApplicationController
 
       # Ordenar os dados
       sorted_data = dados.sort
+      # Se n < 3, impossível calcular q1 e q3 corretamente
+      return [] if sorted_data.count < 5
 
       # Calcular os quartis manualmente
       n = sorted_data.length
@@ -72,8 +74,8 @@ class DashboardController < ApplicationController
       iqr = q3 - q1
 
       # Definir limites para identificar outliers
-      lower_bound = q1 - 0.9 * iqr
-      upper_bound = q3 + 0.9 * iqr
+      lower_bound = q1 - 1.3 * iqr
+      upper_bound = q3 + 1.3 * iqr
 
       # Identificar outliers
       outliers = dados.select { |x| x < lower_bound || x > upper_bound }
