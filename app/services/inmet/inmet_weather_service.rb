@@ -30,8 +30,8 @@ class Inmet::InmetWeatherService
                 description: params.to_json,
                 erro: e.to_json
             )
-  
-          return {}
+
+            raise e
         end
     end
 
