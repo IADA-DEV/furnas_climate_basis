@@ -44,6 +44,11 @@ class DashboardController < ApplicationController
   def box_plot
     grouped_data = @data.group_by { |t| t.hr_medicao.to_brz.to_date }
     @temperatura_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:tem_ins, grouped_data))
+    @humidade_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:umd_ins, grouped_data))
+    @chuva_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:chuva, grouped_data))
+    @radiacao_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:rad_glo, grouped_data))
+    @vento_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:ven_vel, grouped_data))
+    @presao_box = calcular_limites_e_outliers(@data.fetch_and_process_data_g(:pre_ins, grouped_data))
   end
 
   def calcular_limites_e_outliers(dados_lista)
@@ -74,8 +79,8 @@ class DashboardController < ApplicationController
       iqr = q3 - q1
 
       # Definir limites para identificar outliers
-      lower_bound = q1 - 1.3 * iqr
-      upper_bound = q3 + 1.3 * iqr
+      lower_bound = q1 - 0.9 * iqr
+      upper_bound = q3 + 0.9 * iqr
 
       # Identificar outliers
       outliers = dados.select { |x| x < lower_bound || x > upper_bound }

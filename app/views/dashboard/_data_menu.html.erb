@@ -3,15 +3,15 @@
     <%= render partial: 'card_data',
                locals: { dados: @temperatura || [], time: @time, id: 'TEMPERATURA', type: 'HORA' , unidade: " ºC"      ,histograma: @temperatura_histograma || [], box_plot_data: @temperatura_box || [] } %>
     <%= render partial: 'card_data',
-               locals: { dados: @humidade || [],    time: @time, id: 'HUMIDADE',    type: 'HORA' , unidade: " %"       ,histograma: @humidade_histograma    || [], box_plot_data: @temperatura_box || [] } %>
+               locals: { dados: @humidade || [],    time: @time, id: 'HUMIDADE',    type: 'HORA' , unidade: " %"       ,histograma: @humidade_histograma    || [], box_plot_data: @humidade_box || [] } %>
     <%= render partial: 'card_data',
-               locals: { dados: @chuva || [],       time: @time, id: 'CHUVA',       type: 'HORA' , unidade: " mm"      ,histograma: @chuva_histograma       || [], box_plot_data: @temperatura_box || [] } %>
+               locals: { dados: @chuva || [],       time: @time, id: 'CHUVA',       type: 'HORA' , unidade: " mm"      ,histograma: @chuva_histograma       || [], box_plot_data: @chuva_box || [] } %>
     <%= render partial: 'card_data',
-               locals: { dados: @radiacao || [],    time: @time, id: 'RADIAÇÃO',    type: 'HORA' , unidade: " (KJ/m¬≤)",histograma: @radiacao_histograma    || [], box_plot_data: @temperatura_box || [] } %>
+               locals: { dados: @radiacao || [],    time: @time, id: 'RADIAÇÃO',    type: 'HORA' , unidade: " (KJ/m¬≤)",histograma: @radiacao_histograma    || [], box_plot_data: @radiacao_box || [] } %>
     <%= render partial: 'card_data',
-               locals: { dados: @vento || [],       time: @time, id: 'VENTO',       type: 'HORA' , unidade: " m/s"     ,histograma: @vento_histograma       || [], box_plot_data: @temperatura_box || [] } %>
+               locals: { dados: @vento || [],       time: @time, id: 'VENTO',       type: 'HORA' , unidade: " m/s"     ,histograma: @vento_histograma       || [], box_plot_data: @vento_box || [] } %>
     <%= render partial: 'card_data',
-               locals: { dados: @presao || [],      time: @time, id: 'PRESSÃO',     type: 'HORA' , unidade: " hPa"     ,histograma: @presao_histograma      || [], box_plot_data: @temperatura_box || [] } %>
+               locals: { dados: @presao || [],      time: @time, id: 'PRESSÃO',     type: 'HORA' , unidade: " hPa"     ,histograma: @presao_histograma      || [], box_plot_data: @presao_box || [] } %>
   </div>
 
   <div class="col-sm-12 col-xl-12 box-col-12">
