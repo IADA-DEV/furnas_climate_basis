@@ -1,17 +1,18 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  pool: 40
 
 development:
   <<: *default
-  pool: 40
+  # pool: 40
   database: furnas_climate_basis_development
 
 
 production:
   <<: *default
-  prepared_statements: false
-  advisory_locks: false
+  # prepared_statements: false
+  # advisory_locks: false
   host:     <%= ENV["DATABASE_HOST"] %>
   database: <%= ENV["DATABASE_NAME"] %>
   port:     <%= ENV["DATABASE_PORT"] %>
